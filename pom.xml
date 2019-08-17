@@ -17,5 +17,7 @@
     <module>app-producer-hastoken</module>
     <module>app-producer-hasauth</module>
     <module>app-solr</module>
+    <module>app-producer-wechat</module>
+    <module>app-consumer-wechat</module>
   </modules>
 </project>
