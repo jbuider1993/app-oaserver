@@ -33,13 +33,14 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("app系统无需用户权限接口文档")
-				.description("app系统无需用户权限接口文档说明")
+				.title("微信小程序接口文档")
+				.description("微信小程序接口文档说明")
 				.contact(new Contact("卫志强", "", ""))
 				.version("1.0")
 				.build();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Bean
 	UiConfiguration uiConfig() {
 		return new UiConfiguration(null, "list", "alpha", "schema",

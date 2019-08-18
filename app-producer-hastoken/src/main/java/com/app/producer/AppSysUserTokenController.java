@@ -42,7 +42,7 @@ public class AppSysUserTokenController {
 		if(userToken.contains(",")){
         	userToken = userToken.substring(0, userToken.indexOf(","));
         }
-		String allMenuMation =jedisClient.get("allMenuMation:" + userToken);
+		String allMenuMation = jedisClient.get("allMenuMation:" + userToken);
 		List<Object> list =JSON.parseArray(allMenuMation);
         List< Map<String,Object>> listmap = new ArrayList<Map<String,Object>>();
         for (Object object : list){
