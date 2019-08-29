@@ -25,8 +25,8 @@ public class AppSysUserController {
 	     * @return String 返回类型
 	     * 
 	 */
-	@PostMapping ("/post/AppSysUserController/login")
-	@ApiOperation(value = "/post/AppSysUserController/login", notes = "登录")
+	@PostMapping ("/post/AppSysUserController/queryUserMationToLogin")
+	@ApiOperation(value = "/post/AppSysUserController/queryUserMationToLogin", notes = "登录")
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "name", value = "用户名", dataType = "String", required = true, paramType = "query"), 
 		@ApiImplicitParam(name = "password", value = "密码", dataType = "String", required = true, paramType = "query") })

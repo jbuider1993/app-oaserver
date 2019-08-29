@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.common.util.ToolUtil;
 import com.app.dao.AppCompanyChatDao;
-import com.app.redis.JedisClientService;
 
 /**
  * 
@@ -23,9 +22,6 @@ import com.app.redis.JedisClientService;
  */
 @RestController
 public class AppCompanyChatController {
-	
-	@Autowired
-	private JedisClientService jedisService;
 	
 	@Autowired
 	private AppCompanyChatDao appcompanyChatDao;

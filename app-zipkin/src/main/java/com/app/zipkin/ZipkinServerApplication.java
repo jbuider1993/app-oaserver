@@ -1,4 +1,4 @@
-package org.app.zipkin;
+package com.app.zipkin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

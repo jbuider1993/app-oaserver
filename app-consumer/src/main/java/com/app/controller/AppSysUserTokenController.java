@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.service.AppSysUserTokenService;
 
 @RestController
-@Api(value = "菜单类")
+@Api(value = "用户session")
 public class AppSysUserTokenController {
 
 	@Autowired

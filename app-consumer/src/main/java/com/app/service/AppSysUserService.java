@@ -13,7 +13,7 @@ import com.app.service.hystrix.AppSysUserServiceHystrix;
 @FeignClient(name= "app-producer", fallback = AppSysUserServiceHystrix.class)
 public interface AppSysUserService {
 
-    @RequestMapping(value = "/post/AppSysUserController/login")
+    @RequestMapping(value = "/post/AppSysUserController/queryUserMationToLogin")
     public String login(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password);
 
 }

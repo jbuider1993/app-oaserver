@@ -39,7 +39,7 @@ public class AppSysUserController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppSysUserController/login")
+	@RequestMapping("/post/AppSysUserController/queryUserMationToLogin")
 	@ResponseBody
 	public void login(HttpServletResponse response, @RequestParam String name, @RequestParam String password) throws Exception{
 		Map<String, Object> map = new HashMap<>();

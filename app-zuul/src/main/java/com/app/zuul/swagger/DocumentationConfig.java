@@ -32,7 +32,7 @@ public class DocumentationConfig implements SwaggerResourcesProvider {
 		// route.getFullPath().replace("**", "v2/api-docs"), "2.0")));
 		// 2.访问指定接口
 		List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("APP无需权限接口", "/app/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("APP权限接口", "/app/v2/api-docs", "2.0"));
 //        resources.add(swaggerResource("微信小程序接口", "/wechat/v2/api-docs", "2.0"));
 		return resources;
 	}
