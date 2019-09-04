@@ -54,9 +54,6 @@ public class AOPOutputObjectput {
 			logger.info("环绕通知开始");
 			//分别送请求和cookies中获取usertoken
 			String userToken = request.getParameter("userToken");
-			if(userToken.contains(",")){
-	        	userToken = userToken.substring(0, userToken.indexOf(","));
-	        }
 			
 			//usertoken最终判断
 			if(ToolUtil.isBlank(userToken)) {
