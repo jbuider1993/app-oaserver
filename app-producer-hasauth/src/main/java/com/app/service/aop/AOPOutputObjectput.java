@@ -71,14 +71,14 @@ public class AOPOutputObjectput {
 					ToolUtil.sendMessageToPageComJson(response, "您还未登录，请先登录。", "401");
 				}else{
 					//获取请求路径
-					String url = request.getContextPath() + request.getServletPath();
-					String key = url.replaceAll("/", "");
-					List<Map<String, Object>> authPoints = JSONArray.fromObject(jedisClient.get("authPointsMation:" + userToken).toString());//所有权限信息
-					if(authPoints(authPoints, key)){
+//					String url = request.getContextPath() + request.getServletPath();
+//					String key = url.replaceAll("/", "");
+//					List<Map<String, Object>> authPoints = JSONArray.fromObject(jedisClient.get("authPointsMation:" + userToken).toString());//所有权限信息
+//					if(authPoints(authPoints, key)){
 						pjp.proceed();
-					}else{
-						ToolUtil.sendMessageToPageComJson(response, "您不具备该权限。", "201");
-					}
+//					}else{
+//						ToolUtil.sendMessageToPageComJson(response, "您不具备该权限。", "201");
+//					}
 				}
 			}
 			

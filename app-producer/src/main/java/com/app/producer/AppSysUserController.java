@@ -46,7 +46,7 @@ public class AppSysUserController {
 		map.put("userCode", name);
 		Map<String, Object> userMation = appSysUserDao.queryMationByUserCode(map);
 		if(userMation == null){
-			ToolUtil.sendMessageToPageComJson(response,"请确保用户名输入无误！", "-9999");
+			ToolUtil.sendMessageToPageComJson(response, "请确保用户名输入无误！", "-9999");
 		}else{
 			int pwdNum = Integer.parseInt(userMation.get("pwdNum").toString());
 			for(int i = 0; i < pwdNum; i++){
@@ -54,7 +54,7 @@ public class AppSysUserController {
 			}
 			if(password.equals(userMation.get("password").toString())){
 				if(Constants.SYS_USER_LOCK_STATE_ISLOCK.equals(userMation.get("userLock").toString())){
-					ToolUtil.sendMessageToPageComJson(response,"您的账号已被锁定，请联系管理员解除！", "-9999");
+					ToolUtil.sendMessageToPageComJson(response, "您的账号已被锁定，请联系管理员解除！", "-9999");
 				}else{
 					List<Map<String, Object>> allMenuMation = appSysUserDao.queryAppMenuByUserId(userMation);//获取用户所拥有的APP菜单
 					allMenuMation = ToolUtil.allMenuToTree(allMenuMation);
@@ -65,7 +65,7 @@ public class AppSysUserController {
 					ToolUtil.sendMessageToPageComJson(response, userMation);
 				}
 			}else{
-				ToolUtil.sendMessageToPageComJson(response,"密码输入错误！", "-9999");
+				ToolUtil.sendMessageToPageComJson(response, "密码输入错误！", "-9999");
 			}
 		}
 	}

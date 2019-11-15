@@ -20,7 +20,7 @@ public class WxSmallProUserMationController {
 
 	/**
 	 * 
-	     * @Title: queryUserMationByOpenId
+	     * @Title: getUserMationByOpenId
 	     * @Description: 根据openId获取用户信息
 	     * @return String 返回类型
 	     * 

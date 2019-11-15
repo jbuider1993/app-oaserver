@@ -10,7 +10,7 @@ import com.app.service.hystrix.AppFileConsoleServiceHystrix;
 @FeignClient(name= "app-producer-hasauth", fallback = AppFileConsoleServiceHystrix.class)
 public interface AppFileConsoleService {
 	
-	@RequestMapping(value = "/post/FileConsoleController/queryFilesListByFolderId")
-	public String queryFilesListByFolderId(@RequestParam(value = "userToken")String userToken, @RequestParam(value = "folderId")String folderId) throws Exception;
+	@RequestMapping(value = "/queryFilesListByFolderId")
+	public String queryFilesListByFolderId(@RequestParam(value = "userToken") String userToken, @RequestParam(value = "folderId") String folderId) throws Exception;
 	
 }

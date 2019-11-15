@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.common.util.ToolUtil;
 import com.app.dao.FileConsoleDao;
 import com.app.redis.JedisClientService;
+
 import net.sf.json.JSONObject;
 
 @RestController
@@ -37,8 +37,7 @@ public class FileConsoleController {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/post/FileConsoleController/queryFilesListByFolderId")
-	@ResponseBody
+	@RequestMapping("/queryFilesListByFolderId")
 	public void queryFilesListByFolderId(HttpServletResponse response, String userToken, String folderId) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		Map<String, Object> user = JSONObject.fromObject(jedisService.get("userMation:" + userToken).toString());

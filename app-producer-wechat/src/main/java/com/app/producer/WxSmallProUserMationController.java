@@ -6,10 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -43,7 +41,6 @@ public class WxSmallProUserMationController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/getUserMationByOpenId")
-	@ResponseBody
 	public void queryUserMationByOpenId(HttpServletResponse response, @RequestParam String openId) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		//判断该微信用户在redis中是否存在数据
