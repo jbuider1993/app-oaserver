@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +18,6 @@ import com.app.dao.WxSmallProUserMationDao;
 import com.app.redis.JedisClientService;
 import com.app.wechat.util.WxchatUtil;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -42,7 +42,7 @@ public class WxSmallProUserMationController {
 	     * 
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/post/WxSmallProUserMationController/queryUserMationByOpenId")
+	@RequestMapping("/getUserMationByOpenId")
 	@ResponseBody
 	public void queryUserMationByOpenId(HttpServletResponse response, @RequestParam String openId) throws Exception{
 		Map<String, Object> map = new HashMap<>();

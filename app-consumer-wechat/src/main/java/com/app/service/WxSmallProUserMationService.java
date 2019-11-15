@@ -13,7 +13,7 @@ import com.app.service.hystrix.WxSmallProUserMationServiceHystrix;
 @FeignClient(name= "app-producer-wechat", fallback = WxSmallProUserMationServiceHystrix.class)
 public interface WxSmallProUserMationService {
 
-    @RequestMapping(value = "/post/WxSmallProUserMationController/queryUserMationByOpenId")
+    @RequestMapping(value = "/getUserMationByOpenId")
 	public String queryUserMationByOpenId(@RequestParam(value = "openId") String openId);
     
 }
