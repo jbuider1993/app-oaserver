@@ -1,7 +1,7 @@
 package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.WxSmallProUserMationService;
@@ -25,7 +25,7 @@ public class WxSmallProUserMationController {
 	     * @return String 返回类型
 	     * 
 	 */
-	@PostMapping("/getUserMationByOpenId")
+	@GetMapping("/getUserMationByOpenId")
 	@ApiOperation(value = "根据openId获取用户信息", notes = "微信端用户根据openId获取用户信息", produces = "application/json")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "openId", value = "微信用户openId", dataType = "String", required = true, paramType = "query") })
 	public String queryUserMationByOpenId(String openId) {
