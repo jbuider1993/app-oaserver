@@ -11,6 +11,7 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -390,11 +391,14 @@ public class ToolUtil {
 	     * @return String    返回类型
 	     * @throws
 	 */
-	public static String MD5(String str) throws Exception {
+	public static String MD5(String str) {
 		byte[] bt = str.getBytes();
 		StringBuffer sbf = null;
 		MessageDigest md = null;
-		md = MessageDigest.getInstance("MD5");
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+		}
 		byte[] bt1 = md.digest(bt);
 		sbf = new StringBuffer();
 		for (int i = 0; i < bt1.length; i++) {

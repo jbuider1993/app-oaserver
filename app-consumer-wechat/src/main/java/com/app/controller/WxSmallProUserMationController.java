@@ -2,6 +2,7 @@ package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.WxSmallProUserMationService;
@@ -30,6 +31,24 @@ public class WxSmallProUserMationController {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "openId", value = "微信用户openId", dataType = "String", required = true, paramType = "query") })
 	public String queryUserMationByOpenId(String openId) {
 		return appSysUserTokenService.queryUserMationByOpenId(openId);
+	}
+	
+	/**
+	 * 
+	     * @Title: bindUserMation
+	     * @Description: openId绑定用户信息
+	     * @return String 返回类型
+	     * 
+	 */
+	@PostMapping("/bindUserMation")
+	@ApiOperation(value = "openId绑定用户信息", notes = "openId绑定用户信息", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "openId", value = "微信用户openId", dataType = "String", required = true, paramType = "form"),
+		@ApiImplicitParam(name = "userCode", value = "绑定的账号", dataType = "String", required = true, paramType = "form"),
+		@ApiImplicitParam(name = "password", value = "绑定账号的密码", dataType = "String", required = true, paramType = "form")
+	})
+	public String bindUserMation(String openId, String userCode, String password) {
+		return appSysUserTokenService.bindUserMation(openId, userCode, password);
 	}
 	
 }

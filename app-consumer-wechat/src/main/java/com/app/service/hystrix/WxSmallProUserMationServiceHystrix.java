@@ -11,5 +11,10 @@ public class WxSmallProUserMationServiceHystrix implements WxSmallProUserMationS
 	public String queryUserMationByOpenId(String openId) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
+
+	@Override
+	public String bindUserMation(String openId, String userCode, String password) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
 	
 }
