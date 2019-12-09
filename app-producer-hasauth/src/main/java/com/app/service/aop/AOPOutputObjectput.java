@@ -3,6 +3,7 @@ package com.app.service.aop;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -59,7 +60,7 @@ public class AOPOutputObjectput {
 		try {
 			logger.info("环绕通知开始");
 			//分别送请求和cookies中获取usertoken
-			String userToken = request.getParameter("userToken");
+			String userToken = getUserToken(request);
 			
 			//usertoken最终判断
 			if(ToolUtil.isBlank(userToken)) {
@@ -119,6 +120,42 @@ public class AOPOutputObjectput {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 获取userToken
+	 * @param request
+	 * @return
+	 */
+	public String getUserToken(HttpServletRequest request){
+		String userToken = request.getParameter("userToken");
+		//从cookies中获取
+		if(ToolUtil.isBlank(userToken)){
+			userToken = getCookiesByName(request, "userToken");
+		}
+		//从header中获取
+		if(ToolUtil.isBlank(userToken)){
+			userToken = request.getHeader("userToken");
+		}
+		return userToken;
+	}
+	
+	/**
+	 * 从cookies获取内容
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	public String getCookiesByName(HttpServletRequest request, String name){
+		Cookie[] cookies =  request.getCookies();
+		if(cookies != null){
+			for(Cookie cookie : cookies){
+				if(cookie.getName().equals(name)){
+					return cookie.getValue();
+				}
+			}
+		}
+		return "";
 	}
 	
 }
