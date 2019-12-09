@@ -9,12 +9,12 @@ import com.app.service.AppSysUserTokenService;
 public class AppSysUserTokenServiceHystrix implements AppSysUserTokenService{
 	
 	@Override
-	public String queryMenuBySession(@RequestParam("userToken") String userToken) {
+	public String querySysUserMation(@RequestParam("userToken") String userToken) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String deleteUserMationBySession(@RequestParam("userToken") String userToken) {
+	public String logout(@RequestParam("userToken") String userToken) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	

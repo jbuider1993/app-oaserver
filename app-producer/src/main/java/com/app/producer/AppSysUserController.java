@@ -7,9 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -20,7 +19,7 @@ import com.app.redis.JedisClientService;
 
 /**
  * 
- * @author 
+ * @author 卫志强
  *
  */
 @RestController
@@ -39,8 +38,7 @@ public class AppSysUserController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppSysUserController/queryUserMationToLogin")
-	@ResponseBody
+	@PostMapping("/appLogin")
 	public void login(HttpServletResponse response, @RequestParam String name, @RequestParam String password) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		map.put("userCode", name);

@@ -8,9 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -42,8 +44,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/queryNoteAllFile")
-	@ResponseBody
+	@GetMapping("/myNote")
 	public void queryNoteAllFile(HttpServletResponse response, @RequestParam String userToken) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
         if(userToken.contains("-")){
@@ -63,8 +64,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/queryNoteContent")
-	@ResponseBody
+	@GetMapping("/myNoteDetail")
 	public void queryNoteContent(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
@@ -80,8 +80,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/queryNewNote")
-	@ResponseBody
+	@GetMapping("/myNewNote")
 	public void queryNewNote(HttpServletResponse response, @RequestParam String userToken) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userToken.contains("-")){
@@ -95,13 +94,12 @@ public class AppMyNoteController {
 	/**
 	 * 
 	     * @Title: addNoteFile
-	     * @Description: 新增文件夹
+	     * @Description: 新建目录
 	     * @param @throws Exception    参数
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/addNoteFile")
-	@ResponseBody
+	@PostMapping("/myNoteFolder")
 	public void addNoteFile(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String name) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
@@ -128,8 +126,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/addNoteContent")
-	@ResponseBody
+	@PostMapping("/myNote")
 	public void addNoteContent(HttpServletResponse response, @RequestParam String userToken, @RequestParam String pid, @RequestParam String name, @RequestParam String type, @RequestParam String desc, @RequestParam String content) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
@@ -161,8 +158,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/editNoteFileName")
-	@ResponseBody
+	@PutMapping("/myNoteFileName")
 	public void editNoteFileName(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String name, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
@@ -191,8 +187,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/editNoteContent")
-	@ResponseBody
+	@PutMapping("/myNote")
 	public void editNoteContent(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String name, @RequestParam String desc, @RequestParam String content) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
@@ -218,8 +213,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/deleteFileFolderById")
-	@ResponseBody
+	@DeleteMapping("/myNote")
 	public void deleteFileFolderById(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
@@ -248,8 +242,7 @@ public class AppMyNoteController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppMyNoteController/queryMoveToFile")
-	@ResponseBody
+	@GetMapping("/myMoveToFile")
 	public void queryMoveToFile(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		List<Map<String, Object>> beans = new ArrayList<>(); 
@@ -276,8 +269,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/post/AppMyNoteController/editNoteToMoveById")
-	@ResponseBody
+	@PostMapping("/myMoveToFile")
 	public void editNoteToMoveById(HttpServletResponse response, @RequestParam String userToken, @RequestParam String moveid, @RequestParam String toid, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){

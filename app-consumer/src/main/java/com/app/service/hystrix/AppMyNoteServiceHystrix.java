@@ -24,7 +24,7 @@ public class AppMyNoteServiceHystrix implements AppMyNoteService{
 	}
 	
 	@Override
-	public String addNoteFile(@RequestParam("userToken") String userToken, @RequestParam("id") String id, @RequestParam("name") String name) {
+	public String addNoteFolder(@RequestParam("userToken") String userToken, @RequestParam("id") String id, @RequestParam("name") String name) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	

@@ -7,9 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.common.util.ToolUtil;
@@ -17,7 +16,7 @@ import com.app.dao.AppCompanyChatDao;
 
 /**
  * 
- * @author 
+ * @author 卫志强
  *
  */
 @RestController
@@ -34,8 +33,7 @@ public class AppCompanyChatController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppCompanyChatController/querycompanyDepartment")
-	@ResponseBody
+	@GetMapping("/compantUserChan")
 	public void querycompanyDepartment(HttpServletResponse response, @RequestParam String userToken) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
         if(userToken.contains("-")){

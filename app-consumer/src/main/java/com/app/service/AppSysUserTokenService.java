@@ -2,6 +2,7 @@ package com.app.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.service.hystrix.AppSysUserTokenServiceHystrix;
@@ -13,10 +14,10 @@ import com.app.service.hystrix.AppSysUserTokenServiceHystrix;
 @FeignClient(name= "app-producer-hastoken", fallback = AppSysUserTokenServiceHystrix.class)
 public interface AppSysUserTokenService {
 
-    @RequestMapping(value = "/post/AppSysUserTokenController/queryMenuBySession")
-	public String queryMenuBySession(@RequestParam(value = "userToken") String userToken);
+    @RequestMapping(value = "/sysUserMation", method = RequestMethod.GET)
+	public String querySysUserMation(@RequestParam(value = "userToken") String userToken);
     
-    @RequestMapping(value = "/post/AppSysUserTokenController/deleteUserMationBySession")
-	public String deleteUserMationBySession(@RequestParam(value = "userToken") String userToken);
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String logout(@RequestParam(value = "userToken") String userToken);
     
 }

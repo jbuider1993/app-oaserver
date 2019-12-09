@@ -7,7 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ import com.app.redis.JedisClientService;
 
 /**
  * 
- * @author 
+ * @author 卫志强
  *
  */
 @RestController
@@ -29,16 +30,15 @@ public class AppSysUserTokenController {
 
 	/**
 	 * 
-	     * @Title: queryMenuBySession
+	     * @Title: querySysUserMation
 	     * @Description: 从session中获取用户拥有的菜单信息
 	     * @param @throws Exception    参数
 	     * @return void    返回类型
 	     * @throws
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/post/AppSysUserTokenController/queryMenuBySession")
-	@ResponseBody
-	public void queryMenuBySession(HttpServletResponse response, @RequestParam String userToken) throws Exception{
+	@GetMapping("/sysUserMation")
+	public void querySysUserMation(HttpServletResponse response, @RequestParam String userToken) throws Exception{
 		if(userToken.contains(",")){
         	userToken = userToken.substring(0, userToken.indexOf(","));
         }
@@ -60,7 +60,7 @@ public class AppSysUserTokenController {
 	     * @return void    返回类型
 	     * @throws
 	 */
-	@RequestMapping("/post/AppSysUserTokenController/deleteUserMationBySession")
+	@PostMapping("/logout")
 	@ResponseBody
 	public void deleteUserMationBySession(HttpServletResponse response, @RequestParam String userToken) throws Exception{
 		jedisClient.del("userMation:" + userToken);
