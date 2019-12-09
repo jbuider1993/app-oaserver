@@ -3,6 +3,7 @@ package com.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.AppSysUserService;
@@ -43,14 +44,14 @@ public class AppSysUserController {
 	/**
 	 * 
 	     * @Title: querySysUserMation
-	     * @Description: 从session中获取用户拥有的菜单信息
+	     * @Description: 从session中获取用户的信息
 	     * @return String 返回类型
 	     * 
 	 */
 	@GetMapping("/sysUserMation")
-	@ApiOperation(value = "APP手机端用户登录", notes = "APP手机端用户登录", produces = "application/json")
+	@ApiOperation(value = "从session中获取用户的信息", notes = "从session中获取用户的信息", produces = "application/json")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query") })
-	public String querySysUserMation(String userToken) {
+	public String querySysUserMation(@RequestHeader String userToken) {
 		return appSysUserTokenService.querySysUserMation(userToken);
 	}
 	
@@ -64,7 +65,7 @@ public class AppSysUserController {
 	@PostMapping("/logout")
 	@ApiOperation(value = "APP手机端用户注销", notes = "APP手机端用户注销", produces = "application/json")
 	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query") })
-	public String logout(String userToken) {
+	public String logout(@RequestHeader String userToken) {
 		return appSysUserTokenService.logout(userToken);
 	}
 	

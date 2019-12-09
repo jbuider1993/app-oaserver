@@ -60,7 +60,7 @@ public class WxSmallProUserMationController {
 				if(bean.containsKey("userId") && !ToolUtil.isBlank(bean.get("userId").toString())){
 					Map<String, Object> userMation = wxSmallProUserMationDao.queryUserMationByOPenId(openId);
 					//2.将账号的信息存入redis
-					jedisClientService.set("userMation:" + bean.get("userId").toString() + "-wechat", JSON.toJSONString(userMation));
+					jedisClientService.set("userMation:" + bean.get("userId").toString()  + "-APP", JSON.toJSONString(userMation));
 				}
 			}else{
 				//不存在
@@ -74,6 +74,12 @@ public class WxSmallProUserMationController {
 			}
 		}else{
 			map = JSONObject.fromObject(jedisClientService.get(key));
+			//如果已经绑定用户，则获取用户信息
+			if(map.containsKey("userId") && !ToolUtil.isBlank(map.get("userId").toString())){
+				Map<String, Object> userMation = wxSmallProUserMationDao.queryUserMationByOPenId(openId);
+				//2.将账号的信息存入redis
+				jedisClientService.set("userMation:" + map.get("userId").toString()  + "-APP", JSON.toJSONString(userMation));
+			}
 		}
 		ToolUtil.sendMessageToPageComJson(response, map);
 	}
@@ -129,7 +135,7 @@ public class WxSmallProUserMationController {
 								String key = WxchatUtil.getWechatUserOpenIdMation(openId);
 								jedisClientService.set(key, JSON.toJSONString(map));
 								//2.将账号的信息存入redis
-								jedisClientService.set("userMation:" + userId + "-wechat", JSON.toJSONString(userMation));
+								jedisClientService.set("userMation:" + userId  + "-APP", JSON.toJSONString(userMation));
 								ToolUtil.sendMessageToPageComJson(response, map);
 							}
 						}
