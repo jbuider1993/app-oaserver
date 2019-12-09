@@ -60,7 +60,7 @@ public class AOPOutputObjectput {
 				response.setHeader("SESSIONSTATUS", "TIMEOUT");
 	            ToolUtil.sendMessageToPageComJson(response, "您还未登录，请先登录。", "401");
 			}else{
-				if(!jedisClient.exists("userMation:" + userToken)){
+				if(!jedisClient.exists("userMation:" + userToken + "-wechat")){
 					response.setHeader("SESSIONSTATUS", "TIMEOUT");
 					ToolUtil.sendMessageToPageComJson(response, "您还未登录，请先登录。", "401");
 				}else{

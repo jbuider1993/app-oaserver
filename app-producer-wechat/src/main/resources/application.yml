@@ -27,16 +27,6 @@ spring:
         testOnReturn: false
         #通过connectProperties属性来打开mergeSql功能；慢SQL记录
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-        
-    activemq:
-        broker-url: ${activite.path}
-        user: ${activite.username}
-        password: ${activite.password}
-        in-memory: true
-        pool:
-            enabled: false
-            max-connections: 100
-queue: app-pro
 
 #热部署配置
 devtools:

@@ -1,14 +1,11 @@
 package com.app.quartz.config;
 
-import javax.jms.Queue;
-
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.app.entity.SysQuartz;
@@ -21,12 +18,6 @@ public class QuartzJobFactory implements Job{
 	@Autowired
 	private QuartzService quartzService;
 
-	@Autowired
-	private JmsMessagingTemplate jmsMessagingTemplate;
-	
-	@Autowired
-	private Queue queue;
-	
 	/**
 	 * 任务监听
 	 */

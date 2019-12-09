@@ -16,4 +16,6 @@ public interface WxSmallProUserMationDao {
 
 	public int updateBindUserMation(Map<String, Object> map);
 
+	public Map<String, Object> queryUserMationByOPenId(String openId);
+
 }

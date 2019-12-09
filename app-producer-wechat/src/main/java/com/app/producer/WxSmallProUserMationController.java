@@ -49,12 +49,19 @@ public class WxSmallProUserMationController {
 		String key = WxchatUtil.getWechatUserOpenIdMation(openId);
 		if(ToolUtil.isBlank(jedisClientService.get(key))){
 			//该用户没有绑定账号
-			//判断该用户的openId是否存在于数据库
 			Map<String, Object> bean = wxSmallProUserMationDao.queryUserMationByOpenId(openId);
+			//判断该用户的openId是否存在于数据库
 			if(bean != null && !bean.isEmpty()){
 				//存在数据库
 				map.putAll(bean);
+				//1.将微信和账号的绑定信息存入redis
 				jedisClientService.set(key, JSON.toJSONString(bean));
+				//如果已经绑定用户，则获取用户信息
+				if(bean.containsKey("userId") && !ToolUtil.isBlank(bean.get("userId").toString())){
+					Map<String, Object> userMation = wxSmallProUserMationDao.queryUserMationByOPenId(openId);
+					//2.将账号的信息存入redis
+					jedisClientService.set("userMation:" + bean.get("userId").toString() + "-wechat", JSON.toJSONString(userMation));
+				}
 			}else{
 				//不存在
 				map.put("id", ToolUtil.getSurFaceId());
@@ -62,6 +69,7 @@ public class WxSmallProUserMationController {
 				map.put("openId", openId);
 				map.put("userId", "");
 				wxSmallProUserMationDao.insertWxUserMation(map);
+				//1.将微信和账号的绑定信息存入redis
 				jedisClientService.set(key, JSON.toJSONString(map));
 			}
 		}else{
@@ -98,7 +106,7 @@ public class WxSmallProUserMationController {
 				}else{
 					Map<String, Object> wxUserMation = wxSmallProUserMationDao.queryUserMationByOpenId(openId);
 					//判断该用户的openId是否存在于数据库
-					if(wxUserMation != null && wxUserMation.isEmpty()){
+					if(wxUserMation != null && !wxUserMation.isEmpty()){
 						//判断当前openId是否已经绑定账号
 						if(wxUserMation.containsKey("userId") && !ToolUtil.isBlank(wxUserMation.get("userId").toString())){
 							ToolUtil.sendMessageToPageComJson(response, "该微信用户已绑定账号.", "-9999");
@@ -110,14 +118,18 @@ public class WxSmallProUserMationController {
 							}else{
 								//构建绑定信息对象
 								Map<String, Object> map = new HashMap<>();
-								map.put("userId", userMation.get("id"));
+								String userId = userMation.get("id").toString();
+								map.put("userId", userId);
 								map.put("bindTime", ToolUtil.getTimeAndToString());
 								map.put("openId", openId);
 								wxSmallProUserMationDao.updateBindUserMation(map);
 								//重新获取绑定信息，存入redis，返回前端
 								map = wxSmallProUserMationDao.queryUserMationByOpenId(openId);
+								//1.将微信和账号的绑定信息存入redis
 								String key = WxchatUtil.getWechatUserOpenIdMation(openId);
 								jedisClientService.set(key, JSON.toJSONString(map));
+								//2.将账号的信息存入redis
+								jedisClientService.set("userMation:" + userId + "-wechat", JSON.toJSONString(userMation));
 								ToolUtil.sendMessageToPageComJson(response, map);
 							}
 						}
