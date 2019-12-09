@@ -9,7 +9,7 @@ import com.app.service.AppFileConsoleService;
 public class AppFileConsoleServiceHystrix implements AppFileConsoleService{
 
 	@Override
-	public String queryFilesListByFolderId(@RequestParam(value = "userToken")String userToken, @RequestParam(value = "folderId")String folderId) throws Exception {
+	public String queryFilesListByFolderId(@RequestParam(value = "userToken")String userToken, @RequestParam(value = "folderId")String folderId) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	

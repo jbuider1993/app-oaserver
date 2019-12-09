@@ -2,6 +2,7 @@ package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.AppFileConsoleService;
@@ -32,7 +33,7 @@ public class AppFileConsoleController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "folderId", value = "目录id", dataType = "String", required = true, paramType = "query")
 	})
-	public String queryFilesListByFolderId(String userToken, String folderId) throws Exception {
+	public String queryFilesListByFolderId(@RequestHeader String userToken, String folderId) {
 		return appFileConsoleService.queryFilesListByFolderId(userToken, folderId); 
 	}
 	
