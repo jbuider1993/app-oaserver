@@ -29,12 +29,14 @@
 			sticky_notes a
 		WHERE
 			a.create_id = #{createId}
+		ORDER BY a.create_time DESC
 	</select>
 	
 	<select id="queryStickyNotesDetailById" resultType="java.util.Map">
 		SELECT
 			a.id,
-			a.content
+			a.content,
+			DATE_FORMAT(a.create_time,'%Y-%m-%d %H:%i') createTime
 		FROM
 			sticky_notes a
 		WHERE

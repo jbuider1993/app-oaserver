@@ -37,7 +37,7 @@ public interface StickyNotesService {
 			@RequestParam(value = "id") String id,
 			@RequestParam(value = "content") String content);
 
-	@RequestMapping(value = "/stickyNotes", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delStickyNotes", method = RequestMethod.POST)
 	public String deleteStickyNotesById(
 			@RequestHeader(value = "userToken") String userToken, 
 			@RequestParam(value = "ids") String[] ids);

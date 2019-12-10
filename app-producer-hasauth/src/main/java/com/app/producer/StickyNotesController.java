@@ -40,7 +40,7 @@ public class StickyNotesController {
 	     * 
 	 */
 	@GetMapping("/stickyNotes")
-	@AuthAnnotation("/stickyNotes/queryStickyNotesByUserId")
+//	@AuthAnnotation("/stickyNotes/queryStickyNotesByUserId")
 	public void queryStickyNotesByUserId(HttpServletResponse response, 
 			@RequestHeader String userToken, 
 			@RequestParam int limit, 
@@ -62,12 +62,13 @@ public class StickyNotesController {
 			@RequestHeader String userToken, 
 			@RequestParam String content) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", ToolUtil.getSurFaceId());
+		String id = ToolUtil.getSurFaceId();
+		map.put("id", id);
 		map.put("content", content);
 		map.put("createId", userToken);
 		map.put("createTime", ToolUtil.getTimeAndToString());
 		stickyNotesDao.insertStickyNotesMation(map);
-		ToolUtil.sendMessageToPageComJson(response);
+		ToolUtil.sendMessageToPageComJson(response, stickyNotesDao.queryStickyNotesDetailById(id, userToken));
 	}
 	
 	/**
@@ -118,12 +119,11 @@ public class StickyNotesController {
 	     * @return String 返回类型
 	     * 
 	 */
-	@DeleteMapping("/stickyNotes")
+	@PostMapping("/delStickyNotes")
 	public void deleteStickyNotesById(HttpServletResponse response, 
 			@RequestHeader String userToken, 
 			@RequestParam String[] ids) {
 		stickyNotesDao.deleteStickyNotesMation(ids);
-		System.out.println(ids);
 		ToolUtil.sendMessageToPageComJson(response);
 	}
 	
