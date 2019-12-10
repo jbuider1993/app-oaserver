@@ -63,13 +63,6 @@
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 		
-		<!-- redis -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-redis</artifactId>
-			<version>1.4.7.RELEASE</version>
-		</dependency>
-		
 		<!-- quartz任务调度框架 -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -154,6 +147,13 @@
 		<dependency>
 		    <groupId>com.app</groupId>
 		    <artifactId>app-common</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- 权限注解模块 -->
+		<dependency>
+		    <groupId>com.app</groupId>
+		    <artifactId>app-common-auth-annotation</artifactId>
 		    <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		

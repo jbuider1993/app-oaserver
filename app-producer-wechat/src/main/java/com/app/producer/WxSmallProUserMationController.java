@@ -1,6 +1,8 @@
 package com.app.producer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +62,10 @@ public class WxSmallProUserMationController {
 				if(bean.containsKey("userId") && !ToolUtil.isBlank(bean.get("userId").toString())){
 					Map<String, Object> userMation = wxSmallProUserMationDao.queryUserMationByOPenId(openId);
 					//2.将账号的信息存入redis
-					jedisClientService.set("userMation:" + bean.get("userId").toString()  + "-APP", JSON.toJSONString(userMation));
+					jedisClientService.set("userMation:" + bean.get("userId").toString() + "-APP", JSON.toJSONString(userMation));
+					//3.将权限的信息存入redis
+					List<Map<String, Object>> authPoints = new ArrayList<>();
+					jedisClientService.set("authPointsMation:" + bean.get("userId").toString() + "-APP", JSON.toJSONString(authPoints));
 				}
 			}else{
 				//不存在
@@ -78,7 +83,10 @@ public class WxSmallProUserMationController {
 			if(map.containsKey("userId") && !ToolUtil.isBlank(map.get("userId").toString())){
 				Map<String, Object> userMation = wxSmallProUserMationDao.queryUserMationByOPenId(openId);
 				//2.将账号的信息存入redis
-				jedisClientService.set("userMation:" + map.get("userId").toString()  + "-APP", JSON.toJSONString(userMation));
+				jedisClientService.set("userMation:" + map.get("userId").toString() + "-APP", JSON.toJSONString(userMation));
+				//3.将权限的信息存入redis
+				List<Map<String, Object>> authPoints = new ArrayList<>();
+				jedisClientService.set("authPointsMation:" + map.get("userId").toString() + "-APP", JSON.toJSONString(authPoints));
 			}
 		}
 		ToolUtil.sendMessageToPageComJson(response, map);
@@ -136,6 +144,9 @@ public class WxSmallProUserMationController {
 								jedisClientService.set(key, JSON.toJSONString(map));
 								//2.将账号的信息存入redis
 								jedisClientService.set("userMation:" + userId  + "-APP", JSON.toJSONString(userMation));
+								//3.将权限的信息存入redis
+								List<Map<String, Object>> authPoints = new ArrayList<>();
+								jedisClientService.set("authPointsMation:" + userId + "-APP", JSON.toJSONString(authPoints));
 								ToolUtil.sendMessageToPageComJson(response, map);
 							}
 						}

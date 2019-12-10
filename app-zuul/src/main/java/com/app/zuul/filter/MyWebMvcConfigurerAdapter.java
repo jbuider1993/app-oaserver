@@ -22,6 +22,11 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * 请求信息配置，在网关处配置静态地址访问以及跨域请求等信息
+ * @author 卫志强
+ *
+ */
 @Configuration
 public class MyWebMvcConfigurerAdapter implements WebMvcConfigurer {
 	

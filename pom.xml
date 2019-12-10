@@ -19,5 +19,7 @@
     <module>app-solr</module>
     <module>app-producer-wechat</module>
     <module>app-consumer-wechat</module>
+    <module>app-common-auth-annotation</module>
+    <module>app-common-redis</module>
   </modules>
 </project>

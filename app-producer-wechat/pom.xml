@@ -142,6 +142,13 @@
 		    <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
+		<!-- 权限注解模块 -->
+		<dependency>
+		    <groupId>com.app</groupId>
+		    <artifactId>app-common-auth-annotation</artifactId>
+		    <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

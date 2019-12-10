@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.common.auth.annotation.AuthAnnotation;
 import com.app.common.util.ToolUtil;
 import com.app.dao.StickyNotesDao;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
@@ -33,13 +34,13 @@ public class StickyNotesController {
 	
 	/**
 	 * 
-	     * @Title: queryJobDiaryDayReceived
-	     * @Description: 遍历我收到的日志
-	     * @param @throws Exception    参数
-	     * @return void    返回类型
-	     * @throws
+	     * @Title: queryStickyNotesByUserId
+	     * @Description: 获取我的便签
+	     * @return String 返回类型
+	     * 
 	 */
 	@GetMapping("/stickyNotes")
+	@AuthAnnotation("/stickyNotes/queryStickyNotesByUserId")
 	public void queryStickyNotesByUserId(HttpServletResponse response, 
 			@RequestHeader String userToken, 
 			@RequestParam int limit, 
