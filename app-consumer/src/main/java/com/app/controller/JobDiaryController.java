@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.service.JobDiaryHasTokenService;
 import com.app.service.JobDiaryService;
 
 @RestController
@@ -22,9 +21,6 @@ public class JobDiaryController {
 
 	@Autowired
 	private JobDiaryService jobDiaryService;
-	
-	@Autowired
-	private JobDiaryHasTokenService jobDiaryHasTokenService;
 
 	/**
 	 * 
@@ -170,7 +166,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "userName", value = "员工姓名", dataType = "String", required = false, paramType = "query")})
 	public String querySysEveUserStaff(@RequestHeader String userToken, int limit, int page, String userName) {
-		return jobDiaryHasTokenService.querySysEveUserStaff(userToken, limit, page, userName); 
+		return jobDiaryService.querySysEveUserStaff(userToken, limit, page, userName); 
 	}
 	
 	/**
@@ -186,7 +182,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "日报关联表Id", dataType = "String", required = true, paramType = "query")})
 	public String queryJobDiaryDetails(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.queryJobDiaryDetails(userToken, rowId); 
+		return jobDiaryService.queryJobDiaryDetails(userToken, rowId); 
 	}
 	
 	/**
@@ -202,7 +198,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "日报Id", dataType = "String", required = true, paramType = "query")})
 	public String selectMysendDetails(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.selectMysendDetails(userToken, rowId); 
+		return jobDiaryService.selectMysendDetails(userToken, rowId); 
 	}
 	
 	/**
@@ -225,7 +221,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userInfo", value = "接收人id拼接串，逗号隔开", dataType = "String", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "weekenclosureInfo", value = "附件信息", dataType = "String", required = false, paramType = "query")})
 	public String insertWeekJobDiary(@RequestHeader String userToken, String completedJob, String thisWorkSummary, String nextWorkPlan, String coordinaJob, String jobRemark, String jobTitle, String userInfo, String weekenclosureInfo) {
-		return jobDiaryHasTokenService.insertWeekJobDiary(userToken, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, weekenclosureInfo); 
+		return jobDiaryService.insertWeekJobDiary(userToken, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, weekenclosureInfo); 
 	}
 	
 	/**
@@ -241,7 +237,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "周报Id", dataType = "String", required = true, paramType = "query")})
 	public String selectMysendWeekDetails(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.selectMysendWeekDetails(userToken, rowId); 
+		return jobDiaryService.selectMysendWeekDetails(userToken, rowId); 
 	}
 	
 	/**
@@ -257,7 +253,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "周报关联表Id", dataType = "String", required = true, paramType = "query")})
 	public String queryWeekJobDiaryDetails(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.queryWeekJobDiaryDetails(userToken, rowId); 
+		return jobDiaryService.queryWeekJobDiaryDetails(userToken, rowId); 
 	}
 	
 	/**
@@ -280,7 +276,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userInfo", value = "接收人id拼接串，逗号隔开", dataType = "String", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "monthenclosureInfo", value = "附件信息", dataType = "String", required = false, paramType = "query")})
 	public String insertMonthJobDiary(@RequestHeader String userToken, String completedJob, String thisWorkSummary, String nextWorkPlan, String coordinaJob, String jobRemark, String jobTitle, String userInfo, String monthenclosureInfo) {
-		return jobDiaryHasTokenService.insertMonthJobDiary(userToken, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, monthenclosureInfo); 
+		return jobDiaryService.insertMonthJobDiary(userToken, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, monthenclosureInfo); 
 	}
 	
 	/**
@@ -296,7 +292,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "月报Id", dataType = "String", required = true, paramType = "query")})
 	public String selectMysendMonthDetails(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.selectMysendMonthDetails(userToken, rowId); 
+		return jobDiaryService.selectMysendMonthDetails(userToken, rowId); 
 	}
 	
 	/**
@@ -312,7 +308,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "月报关联表Id", dataType = "String", required = true, paramType = "query")})
 	public String queryMonthJobDiaryDetails(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.queryMonthJobDiaryDetails(userToken, rowId); 
+		return jobDiaryService.queryMonthJobDiaryDetails(userToken, rowId); 
 	}
 	
 	/**
@@ -328,7 +324,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "日报id", dataType = "String", required = true, paramType = "query")})
 	public String queryJobDiaryDayMysendToEdit(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.queryJobDiaryDayMysendToEdit(userToken, rowId); 
+		return jobDiaryService.queryJobDiaryDayMysendToEdit(userToken, rowId); 
 	}
 	
 	/**
@@ -344,7 +340,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "周报Id", dataType = "String", required = true, paramType = "query")})
 	public String queryWeekJobDiaryDayMysendToEdit(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.queryWeekJobDiaryDayMysendToEdit(userToken, rowId); 
+		return jobDiaryService.queryWeekJobDiaryDayMysendToEdit(userToken, rowId); 
 	}
 	
 	/**
@@ -360,7 +356,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "rowId", value = "月报Id", dataType = "String", required = true, paramType = "query")})
 	public String queryMonthJobDiaryDayMysendToEdit(@RequestHeader String userToken, String rowId) {
-		return jobDiaryHasTokenService.queryMonthJobDiaryDayMysendToEdit(userToken, rowId); 
+		return jobDiaryService.queryMonthJobDiaryDayMysendToEdit(userToken, rowId); 
 	}
 	
 	/**
@@ -384,7 +380,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userInfo", value = "接收人id拼接串，逗号隔开", dataType = "String", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "weekenclosureInfo", value = "附件信息", dataType = "String", required = false, paramType = "query")})
 	public String editWeekDayJobDiary(@RequestHeader String userToken, String rowId, String completedJob, String thisWorkSummary, String nextWorkPlan, String coordinaJob, String jobRemark, String jobTitle, String userInfo, String weekenclosureInfo) {
-		return jobDiaryHasTokenService.editWeekDayJobDiary(userToken, rowId, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, weekenclosureInfo); 
+		return jobDiaryService.editWeekDayJobDiary(userToken, rowId, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, weekenclosureInfo); 
 	}
 	
 	/**
@@ -408,7 +404,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "userInfo", value = "接收人id拼接串，逗号隔开", dataType = "String", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "monthenclosureInfo", value = "附件信息", dataType = "String", required = false, paramType = "query")})
 	public String editMonthDayJobDiary(@RequestHeader String userToken, String rowId, String completedJob, String thisWorkSummary, String nextWorkPlan, String coordinaJob, String jobRemark, String jobTitle, String userInfo, String monthenclosureInfo) {
-		return jobDiaryHasTokenService.editMonthDayJobDiary(userToken, rowId, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, monthenclosureInfo); 
+		return jobDiaryService.editMonthDayJobDiary(userToken, rowId, completedJob, thisWorkSummary, nextWorkPlan, coordinaJob, jobRemark, jobTitle, userInfo, monthenclosureInfo); 
 	}
 	
 	/**
@@ -423,7 +419,7 @@ public class JobDiaryController {
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header")})
 	public String editReceivedJobDiaryToAlreadyRead(@RequestHeader String userToken) {
-		return jobDiaryHasTokenService.editReceivedJobDiaryToAlreadyRead(userToken); 
+		return jobDiaryService.editReceivedJobDiaryToAlreadyRead(userToken); 
 	}
 	
 	/**
@@ -440,7 +436,7 @@ public class JobDiaryController {
 		@ApiImplicitParam(name = "firstTime", value = "查询时间段的起始时间", dataType = "String", required = false, paramType = "query"),
 		@ApiImplicitParam(name = "lastTime", value = "查询时间段的结束时间", dataType = "String", required = false, paramType = "query")})
 	public String queryJobDiaryDayNumber(@RequestHeader String userToken, String firstTime, String lastTime) {
-		return jobDiaryHasTokenService.queryJobDiaryDayNumber(userToken, firstTime, lastTime); 
+		return jobDiaryService.queryJobDiaryDayNumber(userToken, firstTime, lastTime); 
 	}
 	
 }
