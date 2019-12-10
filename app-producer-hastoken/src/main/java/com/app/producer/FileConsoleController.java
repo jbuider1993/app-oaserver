@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.common.util.ToolUtil;
@@ -38,7 +40,9 @@ public class FileConsoleController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/queryFilesListByFolderId")
-	public void queryFilesListByFolderId(HttpServletResponse response, String userToken, String folderId) throws Exception{
+	public void queryFilesListByFolderId(HttpServletResponse response, 
+			@RequestHeader String userToken, 
+			@RequestParam String folderId) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		Map<String, Object> user = JSONObject.fromObject(jedisService.get("userMation:" + userToken).toString());
 		map.put("userId", user.get("id"));

@@ -1,7 +1,6 @@
 package com.app.service.hystrix;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.service.AppMyNoteService;
 
@@ -9,52 +8,52 @@ import com.app.service.AppMyNoteService;
 public class AppMyNoteServiceHystrix implements AppMyNoteService{
 	
 	@Override
-	public String queryNoteAllFile(@RequestParam("userToken") String userToken) {
+	public String queryNoteAllFile(String userToken) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String queryNoteContent(@RequestParam("userToken") String userToken, @RequestParam("id") String id) {
+	public String queryNoteContent(String userToken, String id) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String queryNewNote(@RequestParam("userToken") String userToken) {
+	public String queryNewNote(String userToken) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String addNoteFolder(@RequestParam("userToken") String userToken, @RequestParam("id") String id, @RequestParam("name") String name) {
+	public String addNoteFolder(String userToken, String id, String name) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String addNoteContent(@RequestParam("userToken") String userToken, @RequestParam("pid") String pid, @RequestParam("name") String name, @RequestParam(value = "type") String type, @RequestParam("desc") String desc, @RequestParam("content") String content) {
+	public String addNoteContent(String userToken, String pid, String name, String type, String desc, String content) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String editNoteFileName(@RequestParam("userToken") String userToken, @RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("type") String type) {
+	public String editNoteFileName(String userToken, String id, String name, String type) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String editNoteContent(@RequestParam("userToken") String userToken, @RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("desc") String desc, @RequestParam("content") String content) {
+	public String editNoteContent(String userToken, String id, String name, String desc, String content) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 
 	@Override
-	public String deleteFileFolderById(@RequestParam("userToken") String userToken, @RequestParam("userToken") String id, @RequestParam("userToken") String type) {
+	public String deleteFileFolderById(String userToken, String id, String type) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String queryMoveToFile(@RequestParam("userToken") String userToken, @RequestParam("userToken") String id, @RequestParam(value = "type") String type) {
+	public String queryMoveToFile(String userToken, String id, String type) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	
 	@Override
-	public String editNoteToMoveById(@RequestParam("userToken") String userToken, @RequestParam(value = "moveid") String moveid, @RequestParam(value = "toid") String toid, @RequestParam(value = "type") String type) {
+	public String editNoteToMoveById(String userToken, String moveid, String toid, String type) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 	

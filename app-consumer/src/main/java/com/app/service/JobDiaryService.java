@@ -15,7 +15,8 @@ import com.app.service.hystrix.JobDiaryServiceHystrix;
 public interface JobDiaryService {
 
     @RequestMapping(value = "/JobDiary", method = RequestMethod.GET)
-    public String queryJobDiaryDayReceived(@RequestParam(value = "userToken") String userToken, 
+    public String queryJobDiaryDayReceived(
+    		@RequestParam(value = "userToken") String userToken, 
     		@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page, 
     		@RequestParam(value = "diaryType") int diaryType);

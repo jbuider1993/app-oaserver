@@ -9,7 +9,8 @@ import com.app.service.JobDiaryService;
 public class JobDiaryServiceHystrix implements JobDiaryService{
 	
 	@Override
-	public String queryJobDiaryDayReceived(@RequestParam(value = "userToken") String userToken, 
+	public String queryJobDiaryDayReceived(
+			@RequestParam(value = "userToken") String userToken, 
 			@RequestParam(value = "limit") int limit, 
 			@RequestParam(value = "page") int page, 
 			@RequestParam(value = "diaryType") int diaryType) {
