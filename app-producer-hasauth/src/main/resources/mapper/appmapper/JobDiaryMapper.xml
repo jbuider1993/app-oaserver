@@ -70,4 +70,232 @@
 			ORDER BY a.state ASC, a.realCreateTime DESC
 	</select>
 	
+	<insert id="insertDayJobDiary" parameterType="java.util.Map">
+	    INSERT into job_diary_is_day 
+	    (id, completed_job, incomplete_job, coordina_job, job_remark, create_id, create_time, job_title, state, enclosure_info)
+        VALUES(#{id}, #{completedJob}, #{incompleteJob}, #{coordinaJob}, #{jobRemark}, #{createId}, #{createTime}, #{jobTitle}, #{state}, #{enclosureInfo})
+	</insert>
+	
+	<insert id="insertDayJobDiaryReceived" parameterType="java.util.Map">
+	    INSERT into job_diary_day_received 
+	    (id, diary_day_id, received_id, state)
+	    VALUES
+	    <foreach collection="list" item="item" index="index" separator=",">
+	    	(#{item.id}, #{item.diaryDayId}, #{item.receivedId}, #{item.state})
+	    </foreach>
+	</insert>
+	
+	<select id="queryJobDiaryDayMysend" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM 
+			(SELECT
+				a.id,
+				a.create_time realCreateTime,
+				CONVERT(DATE (a.create_time), char) createTime,
+				a.job_title jobTitle,
+				"1" diaryType,
+				"日报" typeName,
+				a.state
+			FROM
+				job_diary_is_day a
+			WHERE 
+				a.create_id = #{createId}
+				AND a.state != 3
+			UNION ALL
+			SELECT
+				a.id,
+				a.create_time realCreateTime,
+				CONVERT(DATE (a.create_time), char) createTime,
+				a.job_title jobTitle,
+				"2" diaryType,
+				"周报" typeName,
+				a.state
+			FROM
+				job_diary_is_week a
+			WHERE 
+				a.create_id = #{createId}
+				AND a.state != 3
+			UNION ALL
+			SELECT
+				a.id,
+				a.create_time realCreateTime,
+				CONVERT(DATE (a.create_time), char) createTime,
+				a.job_title jobTitle,
+				"3" diaryType,
+				"月报" typeName,
+				a.state
+			FROM
+				job_diary_is_month a
+			WHERE 
+				a.create_id = #{createId}
+				AND a.state != 3) a
+		WHERE 1=1
+			<if test="diaryType != '' and diaryType != null">
+				AND a.diaryType = #{diaryType}
+			</if>
+			ORDER BY a.realCreateTime DESC
+	</select>
+	
+	<select id="queryCreateTime" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM
+			(SELECT
+				a.id,
+				a.create_time realCreateTime,
+				"1" diaryType
+			FROM
+				job_diary_is_day a
+			UNION ALL
+			SELECT
+				a.id,
+				a.create_time realCreateTime,
+				"2" diaryType
+			FROM
+				job_diary_is_week a
+			UNION ALL
+			SELECT
+				a.id,
+				a.create_time realCreateTime,
+				"3" diaryType
+			FROM
+				job_diary_is_month a) a
+		WHERE a.id = #{id}
+	</select>
+	
+	<update id="editJobDiaryDayMysendState" parameterType="java.util.Map">
+		UPDATE job_diary_is_day
+		<set>
+			state = 2
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editJobDiaryWeekMysendState" parameterType="java.util.Map">
+		UPDATE job_diary_is_week
+		<set>
+			state = 2
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editJobDiaryMonthMysendState" parameterType="java.util.Map">
+		UPDATE job_diary_is_month
+		<set>
+			state = 2
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="queryDiaryType" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM
+			(SELECT
+				a.id,
+				"1" diaryType
+			FROM
+				job_diary_day_received a
+			UNION ALL
+			SELECT
+				a.id,
+				"2" diaryType
+			FROM
+				job_diary_week_received a
+			UNION ALL
+			SELECT
+				a.id,
+				"3" diaryType
+			FROM
+				job_diary_month_received a) a
+		WHERE a.id = #{id}
+	</select>
+	
+	<update id="editMyReceivedJobDiary" parameterType="java.util.Map">
+		UPDATE job_diary_day_received
+		<set>
+			state = 3
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editMyReceivedWeekJobDiary" parameterType="java.util.Map">
+		UPDATE job_diary_week_received
+		<set>
+			state = 3
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editMyReceivedMonthJobDiary" parameterType="java.util.Map">
+		UPDATE job_diary_month_received
+		<set>
+			state = 3
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="queryJobDiaryType" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM
+			(SELECT
+				a.id,
+				"1" diaryType
+			FROM
+				job_diary_is_day a
+			UNION ALL
+			SELECT
+				a.id,
+				"2" diaryType
+			FROM
+				job_diary_is_week a
+			UNION ALL
+			SELECT
+				a.id,
+				"3" diaryType
+			FROM
+				job_diary_is_month a) a
+		WHERE a.id = #{id}
+	</select>
+	
+	<update id="editJobDiaryDayMysendDelete" parameterType="java.util.Map">
+		UPDATE job_diary_is_day
+		<set>
+			state = 3
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editJobDiaryWeekMysendDelete" parameterType="java.util.Map">
+		UPDATE job_diary_is_week
+		<set>
+			state = 3
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editJobDiaryMonthMysendDelete" parameterType="java.util.Map">
+		UPDATE job_diary_is_month
+		<set>
+			state = 3
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="editDayJobDiary" parameterType="java.util.Map">
+		UPDATE job_diary_is_day
+		<set>
+			completed_job = #{completedJob},
+			incomplete_job = #{incompleteJob},
+			coordina_job = #{coordinaJob},
+			job_remark = #{jobRemark},
+			job_title = #{jobTitle},
+			state = #{state},
+			enclosure_info = #{enclosureInfo}
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteJobDiaryReceived" parameterType="java.util.Map">
+		DELETE
+		FROM
+			job_diary_day_received
+		WHERE
+			diary_day_id = #{id}
+	</delete>
+	
 </mapper>

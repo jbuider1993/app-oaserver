@@ -16,4 +16,42 @@ public class JobDiaryServiceHystrix implements JobDiaryService{
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 
+	@Override
+	public String insertDayJobDiary(String userToken, String completedJob, String incompleteJob, String coordinaJob, String jobRemark, String jobTitle, String userIds, String enclosureInfo) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String queryJobDiaryDayMysend(String userToken, int limit, int page, int diaryType) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String editJobDiaryDayMysend(String userToken,  String id) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String editMyReceivedJobDiary(String userToken, String id) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String editJobDiaryDayMysendToDelete(String userToken, String id) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String editDayJobDiary(String userToken, String id,
+			String completedJob, String incompleteJob, String coordinaJob,
+			String jobRemark, String jobTitle, String userIds,
+			String enclosureInfo) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String querySysEveUserStaff(String userToken, int limit, int page, String userName) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
 }

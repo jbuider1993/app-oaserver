@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.JobDiaryDao">
+	
+	<select id="querySysEveUserStaff" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.user_id id,
+			a.user_name userName,
+			a.user_sex userSex,
+			d.department_name departmentName,
+			(
+				SELECT
+					COUNT(k.num)
+				FROM
+					(
+						SELECT 1 num, m.received_id FROM job_diary_day_received m, job_diary_is_day n WHERE n.create_id = #{userId} AND m.diary_day_id = n.id
+						UNION ALL
+						SELECT 1 num, m.received_id FROM job_diary_week_received m, job_diary_is_week n WHERE n.create_id = #{userId} AND m.diary_week_id = n.id
+						UNION ALL
+						SELECT 1 num, m.received_id FROM job_diary_month_received m, job_diary_is_month n WHERE n.create_id = #{userId} AND m.diary_month_id = n.id
+					) k
+				WHERE
+					k.received_id = a.user_id
+				GROUP BY k.received_id
+			) receivedNum
+		FROM
+			sys_eve_user_staff a,
+			company_department d
+		WHERE
+			a.user_id != #{userId}
+		AND a.department_id = d.id
+		<if test="userName != '' and userName != null">
+			AND a.user_name LIKE '%${userName}%'
+		</if>
+		ORDER BY receivedNum DESC, a.user_name ASC
+	</select>
+	
+	<select id="queryJobDiaryDetails" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			a.incomplete_job incompleteJob,
+			a.coordina_job coordinaJob,
+			IFNULL(a.job_remark, '暂无备注') jobRemark,
+			a.job_title jobTitle,
+			c.user_name userName,
+			"日报" typeName,
+			(SELECT 
+					GROUP_CONCAT(c.user_name)
+				FROM
+					job_diary_day_received b,
+					sys_eve_user_staff c
+				WHERE b.diary_day_id = a.id
+					AND c.user_id = b.received_id
+			) receivedName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_day a,
+			job_diary_day_received b,
+			sys_eve_user_staff c
+		WHERE 
+			b.id = #{id}
+			AND b.diary_day_id = a.id
+			AND c.user_id = a.create_id
+	</select>
+	
+	<update id="editJobDiaryState" parameterType="java.util.Map">
+		UPDATE job_diary_day_received
+		<set>
+			state = 2,
+			read_time = #{readTime}
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="queryJobDiaryState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			b.id,
+			b.state
+		FROM
+			job_diary_day_received b
+		WHERE 
+			b.id = #{id}
+	</select>
+	
+	<select id="queryJobDiaryDayEnclosureInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            id,
+            file_name name,
+            file_address fileAddress
+        FROM
+            sys_enclosure
+        WHERE
+            instr(concat(',', #{enclosureInfo},','),concat(',', id, ','));
+    </select>
+    
+    <select id="selectMysendDetails" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			IFNULL(a.incomplete_job, '无未完成工作') incompleteJob,
+			IFNULL(a.coordina_job, '无需协调工作') coordinaJob,
+			IFNULL(a.job_remark, '暂无备注') jobRemark,
+			a.job_title jobTitle,
+			"日报" typeName,
+			(SELECT 
+					GROUP_CONCAT(c.user_name)
+				FROM
+					job_diary_day_received b,
+					sys_eve_user_staff c
+				WHERE b.diary_day_id = a.id
+					AND c.user_id = b.received_id
+			) userName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_day a
+		WHERE 
+			a.id = #{id}
+	</select>
+	
+	<insert id="insertWeekJobDiary" parameterType="java.util.Map">
+		INSERT INTO job_diary_is_week
+		(id, job_title, completed_job, this_work_summary, next_work_plan, coordina_job, job_remark, create_id, create_time, state, enclosure_info)
+		VALUES
+		(#{id}, #{jobTitle}, #{completedJob}, #{thisWorkSummary}, #{nextWorkPlan}, #{coordinaJob}, #{jobRemark}, #{createId}, #{createTime}, #{state}, #{enclosureInfo})
+	</insert>
+	
+	<insert id="insertWeekJobDiaryReceived" parameterType="java.util.Map">
+		INSERT INTO job_diary_week_received
+		(id, diary_week_id, state, received_id)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+	    	(#{item.id}, #{item.diaryWeekId}, #{item.state}, #{item.receivedId})
+	    </foreach>
+	</insert>
+	
+	<select id="selectMysendWeekDetails" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			a.id,
+			a.completed_job completedJob,
+			a.this_work_summary thisWorkSummary,
+			a.next_work_plan nextWorkPlan,
+			a.coordina_job coordinaJob,
+			a.job_remark jobRemark,
+			a.job_title jobTitle,
+			"周报" typeName,
+			IFNULL(a.enclosure_info, '') enclosureInfo,
+			(SELECT 
+				GROUP_CONCAT(c.user_name)
+			FROM
+				job_diary_week_received b,
+				sys_eve_user_staff c
+			WHERE 
+				b.diary_week_id = a.id
+				AND c.user_id = b.received_id) userName
+		FROM 
+			job_diary_is_week a
+		WHERE 
+			a.id = #{id}
+	</select>
+	
+	<select id="queryWeekJobDiaryState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			b.id,
+			b.state
+		FROM
+			job_diary_week_received b
+		WHERE 
+			b.id = #{id}
+	</select>
+	
+	<update id="editWeekJobDiaryState" parameterType="java.util.Map">
+		UPDATE job_diary_week_received
+		<set>
+			state = 2,
+			read_time = #{readTime}
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="queryWeekJobDiaryDetails" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			a.this_work_summary thisWorkSummary,
+			a.next_work_plan nextWorkPlan,
+			a.coordina_job coordinaJob,
+			a.job_remark jobRemark,
+			a.job_title jobTitle,
+			"周报" typeName,
+			c.user_name userName,
+			(SELECT 
+					GROUP_CONCAT(c.user_name)
+				FROM
+					job_diary_week_received b,
+					sys_eve_user_staff c
+				WHERE b.diary_week_id = a.id
+					AND c.user_id = b.received_id
+			) receivedName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_week a,
+			job_diary_week_received b,
+			sys_eve_user_staff c
+		WHERE 
+			b.id = #{id}
+			AND b.diary_week_id = a.id
+			AND c.user_id = a.create_id
+	</select>
+	
+	<insert id="insertMonthJobDiary" parameterType="java.util.Map">
+		INSERT INTO job_diary_is_month
+		(id, job_title, completed_job, this_work_summary, next_work_plan, coordina_job, job_remark, create_id, create_time, state, enclosure_info)
+		VALUES
+		(#{id}, #{jobTitle}, #{completedJob}, #{thisWorkSummary}, #{nextWorkPlan}, #{coordinaJob}, #{jobRemark}, #{createId}, #{createTime}, #{state}, #{enclosureInfo})
+	</insert>
+	
+	<insert id="insertMonthJobDiaryReceived" parameterType="java.util.Map">
+		INSERT INTO job_diary_month_received
+		(id, diary_month_id, state, received_id)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+	    	(#{item.id}, #{item.diaryMonthId}, #{item.state}, #{item.receivedId})
+	    </foreach>
+	</insert>
+	
+	<select id="selectMysendMonthDetails" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			a.id,
+			a.completed_job completedJob,
+			a.this_work_summary thisWorkSummary,
+			a.next_work_plan nextWorkPlan,
+			a.coordina_job coordinaJob,
+			a.job_remark jobRemark,
+			a.job_title jobTitle,
+			"月报" typeName,
+			IFNULL(a.enclosure_info, '') enclosureInfo,
+			(SELECT 
+				GROUP_CONCAT(c.user_name)
+			FROM
+				job_diary_month_received b,
+				sys_eve_user_staff c
+			WHERE 
+				b.diary_month_id = a.id
+				AND c.user_id = b.received_id
+			) userName
+		FROM 
+			job_diary_is_month a
+		WHERE 
+			a.id = #{id}
+	</select>
+	
+	<select id="queryMonthJobDiaryState" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			b.state
+		FROM
+			job_diary_month_received b
+		WHERE 
+			b.id = #{id}
+	</select>
+	
+	<update id="editMonthJobDiaryState" parameterType="java.util.Map">
+		UPDATE job_diary_month_received
+		<set>
+			state = 2,
+			read_time = #{readTime}
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="queryMonthJobDiaryDetails" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			a.this_work_summary thisWorkSummary,
+			a.next_work_plan nextWorkPlan,
+			a.coordina_job coordinaJob,
+			a.job_remark jobRemark,
+			a.job_title jobTitle,
+			"月报" typeName,
+			c.user_name userName,
+			(SELECT 
+					GROUP_CONCAT(c.user_name)
+				FROM
+					job_diary_month_received b,
+					sys_eve_user_staff c
+				WHERE b.diary_month_id = a.id
+					AND c.user_id = b.received_id
+			) receivedName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_month a,
+			job_diary_month_received b,
+			sys_eve_user_staff c
+		WHERE 
+			b.id = #{id}
+			AND b.diary_month_id = a.id
+			AND c.user_id = a.create_id
+	</select>
+	
+	<select id="queryJobDiaryDayMysendToEdit" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			IFNULL(a.incomplete_job, '无未完成工作') incompleteJob,
+			IFNULL(a.coordina_job, '无需协调工作') coordinaJob,
+			IFNULL(a.job_remark, '暂无备注') jobRemark,
+			a.job_title jobTitle,
+			"日报" typeName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_day a
+		WHERE 
+			a.id = #{id}
+	</select>
+	
+	<select id="queryJobDiaryDayReceivedUserInfoById" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            b.received_id id,
+            c.user_name `name`,
+			c.email
+        FROM
+            job_diary_day_received b,
+            sys_eve_user_staff c
+        WHERE
+            b.diary_day_id = #{id}
+        AND c.user_id = b.received_id
+    </select>
+	
+	<select id="queryWeekJobDiaryDayMysendToEdit" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			IFNULL(a.this_work_summary, '') thisWorkSummary,
+			IFNULL(a.next_work_plan, '') nextWorkPlan,
+			IFNULL(a.coordina_job, '') coordinaJob,
+			IFNULL(a.job_remark, '暂无备注') jobRemark,
+			a.job_title jobTitle,
+			"周报" typeName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_week a
+		WHERE 
+			a.id = #{id}
+	</select>
+	
+	<select id="queryWeekJobDiaryDayReceivedUserInfoById" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            b.received_id id,
+            c.user_name name
+        FROM
+            job_diary_week_received b,
+            sys_eve_user_staff c
+        WHERE
+            b.diary_week_id = #{id}
+        AND c.user_id = b.received_id
+    </select>
+    
+    <select id="queryMonthJobDiaryDayMysendToEdit" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.completed_job completedJob,
+			IFNULL(a.this_work_summary, '') thisWorkSummary,
+			IFNULL(a.next_work_plan, '') nextWorkPlan,
+			IFNULL(a.coordina_job, '') coordinaJob,
+			IFNULL(a.job_remark, '暂无备注') jobRemark,
+			a.job_title jobTitle,
+			"月报" typeName,
+			IFNULL(a.enclosure_info, '') enclosureInfo
+		FROM
+			job_diary_is_month a
+		WHERE 
+			a.id = #{id}
+	</select>
+	
+	<select id="queryMonthJobDiaryDayReceivedUserInfoById" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            b.received_id id,
+            c.user_name name
+        FROM
+            job_diary_month_received b,
+            sys_eve_user_staff c
+        WHERE
+            b.diary_month_id = #{id}
+        AND c.user_id = b.received_id
+    </select>
+    
+    <update id="editWeekDayJobDiary" parameterType="java.util.Map">
+		UPDATE job_diary_is_week
+		<set>
+			completed_job = #{completedJob},
+			this_work_summary = #{thisWorkSummary},
+			next_work_plan = #{nextWorkPlan},
+			coordina_job = #{coordinaJob},
+			job_remark = #{jobRemark},
+			job_title = #{jobTitle},
+			state = #{state},
+			enclosure_info = #{enclosureInfo}
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteWeekJobDiaryReceived" parameterType="java.util.Map">
+		DELETE
+		FROM
+			job_diary_week_received
+		WHERE
+			diary_week_id = #{id}
+	</delete>
+	
+	<update id="editMonthDayJobDiary" parameterType="java.util.Map">
+		UPDATE job_diary_is_month
+		<set>
+			completed_job = #{completedJob},
+			this_work_summary = #{thisWorkSummary},
+			next_work_plan = #{nextWorkPlan},
+			coordina_job = #{coordinaJob},
+			job_remark = #{jobRemark},
+			job_title = #{jobTitle},
+			state = #{state},
+			enclosure_info = #{enclosureInfo}
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteMonthJobDiaryReceived" parameterType="java.util.Map">
+		DELETE
+		FROM
+			job_diary_month_received
+		WHERE
+			diary_month_id = #{id}
+	</delete>
+	
+	<update id="editReceivedJobDiaryToAlreadyRead" parameterType="java.util.Map">
+        UPDATE job_diary_day_received
+        <set>
+            state = 2,
+            read_time = #{readTime}
+        </set>
+        WHERE received_id = #{userId}
+        AND state = 1
+    </update>
+	
+    <update id="editReceivedWeekJobDiaryToAlreadyRead" parameterType="java.util.Map">
+        UPDATE job_diary_week_received
+        <set>
+            state = 2,
+            read_time = #{readTime}
+        </set>
+        WHERE received_id = #{userId}
+        AND state = 1
+    </update>
+	
+    <update id="editReceivedMonthJobDiaryToAlreadyRead" parameterType="java.util.Map">
+        UPDATE job_diary_month_received
+        <set>
+            state = 2,
+            read_time = #{readTime}
+        </set>
+        WHERE received_id = #{userId}
+        AND state = 1
+    </update>
+    
+    <select id="queryJobDiaryDayNumber" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			count(*) `value`,
+			'日报' `name`
+		FROM
+			job_diary_is_day a
+		WHERE
+			a.create_id = #{userId}
+			AND a.state != 2
+			<if test="firstTime != '' and firstTime != null and lastTime != '' and lastTime != null">
+				AND a.create_time >= #{firstTime} AND #{lastTime} >= a.create_time
+			</if>
+		UNION ALL
+		SELECT
+			count(*) `value`,
+			'周报' `name`
+		FROM
+			job_diary_is_week a
+		WHERE
+			a.create_id = #{userId}
+			AND a.state != 2
+			<if test="firstTime != '' and firstTime != null and lastTime != '' and lastTime != null">
+				AND a.create_time >= #{firstTime} AND #{lastTime} >= a.create_time
+			</if>
+		UNION ALL
+		SELECT
+			count(*) `value`,
+			'月报' `name`
+		FROM
+			job_diary_is_month a
+		WHERE
+			a.create_id = #{userId}
+			AND a.state != 2
+			<if test="firstTime != '' and firstTime != null and lastTime != '' and lastTime != null">
+				AND a.create_time >= #{firstTime} AND #{lastTime} >= a.create_time
+			</if>
+	</select>
+	
+</mapper>
