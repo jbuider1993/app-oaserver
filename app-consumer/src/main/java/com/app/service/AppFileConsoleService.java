@@ -1,6 +1,7 @@
 package com.app.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -11,6 +12,8 @@ import com.app.service.hystrix.AppFileConsoleServiceHystrix;
 public interface AppFileConsoleService {
 	
 	@RequestMapping(value = "/queryFilesListByFolderId")
-	public String queryFilesListByFolderId(@RequestParam(value = "userToken") String userToken, @RequestParam(value = "folderId") String folderId);
+	public String queryFilesListByFolderId(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "folderId") String folderId);
 	
 }
