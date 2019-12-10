@@ -42,10 +42,10 @@ public interface JobDiaryService {
 	public String editJobDiaryDayMysend(@RequestHeader(value = "userToken") String userToken, @RequestParam(value = "rowId") String id);
 
     @RequestMapping(value = "/jobDiaryEdit", method = RequestMethod.PUT)
-	public String editMyReceivedJobDiary(@RequestHeader(value = "userToken") String userToken, @RequestParam(value = "rowId") String id);
+	public String editMyReceivedJobDiary(@RequestHeader(value = "userToken") String userToken, @RequestParam(value = "ids") String[] ids);
 
     @RequestMapping(value = "/jobDiaryEditMySend", method = RequestMethod.PUT)
-	public String editJobDiaryDayMysendToDelete(@RequestHeader(value = "userToken") String userToken, @RequestParam(value = "rowId") String id);
+	public String editJobDiaryDayMysendToDelete(@RequestHeader(value = "userToken") String userToken, @RequestParam(value = "ids") String[] ids);
 
     @RequestMapping(value = "/editDayJobDiary", method = RequestMethod.PUT)
 	public String editDayJobDiary(@RequestHeader(value = "userToken") String userToken, 

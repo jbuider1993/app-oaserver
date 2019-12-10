@@ -33,12 +33,12 @@ public class JobDiaryServiceHystrix implements JobDiaryService{
 	}
 
 	@Override
-	public String editMyReceivedJobDiary(String userToken, String id) {
+	public String editMyReceivedJobDiary(String userToken, String[] ids) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 
 	@Override
-	public String editJobDiaryDayMysendToDelete(String userToken, String id) {
+	public String editJobDiaryDayMysendToDelete(String userToken, String[] ids) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 

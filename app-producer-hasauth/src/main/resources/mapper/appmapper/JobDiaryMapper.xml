@@ -184,34 +184,16 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="queryDiaryType" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM
-			(SELECT
-				a.id,
-				"1" diaryType
-			FROM
-				job_diary_day_received a
-			UNION ALL
-			SELECT
-				a.id,
-				"2" diaryType
-			FROM
-				job_diary_week_received a
-			UNION ALL
-			SELECT
-				a.id,
-				"3" diaryType
-			FROM
-				job_diary_month_received a) a
-		WHERE a.id = #{id}
-	</select>
-	
 	<update id="editMyReceivedJobDiary" parameterType="java.util.Map">
 		UPDATE job_diary_day_received
 		<set>
 			state = 3
 		</set>
-		WHERE id = #{id}
+		WHERE 
+			1 > 2 OR id IN
+			<foreach collection="array" item="item" open="(" separator="," close=")" >
+				#{item}
+			</foreach>
 	</update>
 	
 	<update id="editMyReceivedWeekJobDiary" parameterType="java.util.Map">
@@ -219,7 +201,11 @@
 		<set>
 			state = 3
 		</set>
-		WHERE id = #{id}
+		WHERE 
+			1 > 2 OR id IN
+			<foreach collection="array" item="item" open="(" separator="," close=")" >
+				#{item}
+			</foreach>
 	</update>
 	
 	<update id="editMyReceivedMonthJobDiary" parameterType="java.util.Map">
@@ -227,37 +213,23 @@
 		<set>
 			state = 3
 		</set>
-		WHERE id = #{id}
+		WHERE
+			1 > 2 OR id IN
+			<foreach collection="array" item="item" open="(" separator="," close=")" >
+				#{item}
+			</foreach>
 	</update>
-	
-	<select id="queryJobDiaryType" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM
-			(SELECT
-				a.id,
-				"1" diaryType
-			FROM
-				job_diary_is_day a
-			UNION ALL
-			SELECT
-				a.id,
-				"2" diaryType
-			FROM
-				job_diary_is_week a
-			UNION ALL
-			SELECT
-				a.id,
-				"3" diaryType
-			FROM
-				job_diary_is_month a) a
-		WHERE a.id = #{id}
-	</select>
 	
 	<update id="editJobDiaryDayMysendDelete" parameterType="java.util.Map">
 		UPDATE job_diary_is_day
 		<set>
 			state = 3
 		</set>
-		WHERE id = #{id}
+		WHERE 
+			1 > 2 OR id IN
+			<foreach collection="array" item="item" open="(" separator="," close=")" >
+				#{item}
+			</foreach>
 	</update>
 	
 	<update id="editJobDiaryWeekMysendDelete" parameterType="java.util.Map">
@@ -265,7 +237,11 @@
 		<set>
 			state = 3
 		</set>
-		WHERE id = #{id}
+		WHERE 
+			1 > 2 OR id IN
+			<foreach collection="array" item="item" open="(" separator="," close=")" >
+				#{item}
+			</foreach>
 	</update>
 	
 	<update id="editJobDiaryMonthMysendDelete" parameterType="java.util.Map">
@@ -273,7 +249,11 @@
 		<set>
 			state = 3
 		</set>
-		WHERE id = #{id}
+		WHERE 
+			1 > 2 OR id IN
+			<foreach collection="array" item="item" open="(" separator="," close=")" >
+				#{item}
+			</foreach>
 	</update>
 	
 	<update id="editDayJobDiary" parameterType="java.util.Map">

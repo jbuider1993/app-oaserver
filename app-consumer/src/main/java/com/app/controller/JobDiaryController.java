@@ -107,9 +107,9 @@ public class JobDiaryController {
 	@ApiOperation(value = "删除我收到的日志", notes = "日志包括日报、周报和月报，删除我收到的日志", produces = "application/json")
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
-		@ApiImplicitParam(name = "rowId", value = "日志关联表Id", dataType = "String", required = true, paramType = "query")})
-	public String editMyReceivedJobDiary(@RequestHeader String userToken, String rowId) {
-		return jobDiaryService.editMyReceivedJobDiary(userToken, rowId); 
+		@ApiImplicitParam(name = "ids", value = "多个日志同时删除的日志关联表Id串", dataType = "String", required = true, paramType = "query")})
+	public String editMyReceivedJobDiary(@RequestHeader String userToken, String[] ids) {
+		return jobDiaryService.editMyReceivedJobDiary(userToken, ids); 
 	}
 	
 	/**
@@ -123,9 +123,9 @@ public class JobDiaryController {
 	@ApiOperation(value = "删除我发出的日志", notes = "日志包括日报、周报和月报，删除我发出的日志", produces = "application/json")
 	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
-		@ApiImplicitParam(name = "rowId", value = "日志id", dataType = "String", required = true, paramType = "query")})
-	public String editJobDiaryDayMysendToDelete(@RequestHeader String userToken, String rowId) {
-		return jobDiaryService.editJobDiaryDayMysendToDelete(userToken, rowId); 
+		@ApiImplicitParam(name = "ids", value = "多个日志同时删除的日志Id串", dataType = "String", required = true, paramType = "query")})
+	public String editJobDiaryDayMysendToDelete(@RequestHeader String userToken, String[] ids) {
+		return jobDiaryService.editJobDiaryDayMysendToDelete(userToken, ids); 
 	}
 	
 	/**

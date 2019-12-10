@@ -155,15 +155,10 @@ public class JobDiaryController {
 	     * @throws
 	 */
 	@PutMapping("/jobDiaryEdit")
-	public void editMyReceivedJobDiary(HttpServletResponse response, @RequestParam(value = "rowId") String id) {
-		Map<String, Object> diaryType = jobDiaryDao.queryDiaryType(id);
-		if("1".equals(diaryType.get("diaryType").toString())){
-			jobDiaryDao.editMyReceivedJobDiary(id);
-		}else if("2".equals(diaryType.get("diaryType").toString())){
-			jobDiaryDao.editMyReceivedWeekJobDiary(id);
-		}else if("3".equals(diaryType.get("diaryType").toString())){
-			jobDiaryDao.editMyReceivedMonthJobDiary(id);
-		}
+	public void editMyReceivedJobDiary(HttpServletResponse response, @RequestParam String[] ids) {
+		jobDiaryDao.editMyReceivedJobDiary(ids);
+		jobDiaryDao.editMyReceivedWeekJobDiary(ids);
+		jobDiaryDao.editMyReceivedMonthJobDiary(ids);
 		ToolUtil.sendMessageToPageComJson(response);
 	}
 	
@@ -176,15 +171,10 @@ public class JobDiaryController {
 	     * @throws
 	 */
 	@PutMapping("/jobDiaryEditMySend")
-	public void editJobDiaryDayMysendToDelete(HttpServletResponse response, @RequestParam(value = "rowId") String id) {
-		Map<String, Object> createtime = jobDiaryDao.queryJobDiaryType(id);
-		if("1".equals(createtime.get("diaryType").toString())){
-			jobDiaryDao.editJobDiaryDayMysendDelete(id);  //修改日报表状态变删除
-		}else if("2".equals(createtime.get("diaryType").toString())){
-			jobDiaryDao.editJobDiaryWeekMysendDelete(id);  //修改周报表状态变删除
-		}else if("3".equals(createtime.get("diaryType").toString())){
-			jobDiaryDao.editJobDiaryMonthMysendDelete(id);  //修改月报表状态变删除
-		}
+	public void editJobDiaryDayMysendToDelete(HttpServletResponse response, @RequestParam String[] ids) {
+		jobDiaryDao.editJobDiaryDayMysendDelete(ids);  //修改日报表状态变删除
+		jobDiaryDao.editJobDiaryWeekMysendDelete(ids);  //修改周报表状态变删除
+		jobDiaryDao.editJobDiaryMonthMysendDelete(ids);  //修改月报表状态变删除
 		ToolUtil.sendMessageToPageComJson(response);
 	}
 	

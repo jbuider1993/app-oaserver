@@ -25,21 +25,17 @@ public interface JobDiaryDao {
 
 	public int editJobDiaryMonthMysendState(@Param("id") String id);
 
-	public Map<String, Object> queryDiaryType(@Param("id") String id);
+	public int editMyReceivedJobDiary(String[] ids);
 
-	public int editMyReceivedJobDiary(@Param("id") String id);
+	public int editMyReceivedWeekJobDiary(String[] ids);
 
-	public int editMyReceivedWeekJobDiary(@Param("id") String id);
+	public int editMyReceivedMonthJobDiary(String[] ids);
 
-	public int editMyReceivedMonthJobDiary(@Param("id") String id);
+	public int editJobDiaryDayMysendDelete(String[] ids);
 
-	public Map<String, Object> queryJobDiaryType(@Param("id") String id);
+	public int editJobDiaryWeekMysendDelete(String[] ids);
 
-	public int editJobDiaryDayMysendDelete(@Param("id") String id);
-
-	public int editJobDiaryWeekMysendDelete(@Param("id") String id);
-
-	public int editJobDiaryMonthMysendDelete(@Param("id") String id);
+	public int editJobDiaryMonthMysendDelete(String[] ids);
 
 	public int editDayJobDiary(Map<String, Object> map);
 
