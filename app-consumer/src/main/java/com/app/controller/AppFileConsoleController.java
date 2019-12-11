@@ -30,7 +30,7 @@ public class AppFileConsoleController {
 	@GetMapping("/queryFilesListByFolderId")
 	@ApiOperation(value = "获取指定目录下的所有文件+目录", notes = "获取指定目录下的所有文件+目录", produces = "application/json")
 	@ApiImplicitParams({ 
-		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "folderId", value = "目录id", dataType = "String", required = true, paramType = "query")
 	})
 	public String queryFilesListByFolderId(@RequestHeader String userToken, String folderId) {

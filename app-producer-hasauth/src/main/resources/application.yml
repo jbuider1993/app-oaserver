@@ -2,7 +2,7 @@
 #数据源
 spring:
     datasource:
-        url: jdbc:mysql://${jdbc.database.path}/${jdbc.database.name}?useUnicode=true&characterEncoding=utf8
+        jdbc-url: jdbc:mysql://${jdbc.database.path}/${jdbc.database.name}?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
         driver-class-name: ${jdbc.database.driverClassName}
         username: ${jdbc.database.username}
         password: ${jdbc.database.password}

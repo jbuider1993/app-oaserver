@@ -17,7 +17,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.springframework>1.5.0.RELEASE</spring.springframework>
+		<spring.springframework>2.0.5.RELEASE</spring.springframework>
 	</properties>
 
 	<dependencies>
@@ -43,7 +43,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
             <version>${spring.springframework}</version>
             <scope>test</scope>
         </dependency>

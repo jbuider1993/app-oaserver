@@ -3,7 +3,7 @@ package com.app.common.auth.aop;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 拦截器注入的配置
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  *
  */
 @Configuration
-public class AopInsertConfig extends WebMvcConfigurerAdapter {
+public class AopInsertConfig implements WebMvcConfigurer {
 
 	@Bean
 	public AuthHandler authAop() {
