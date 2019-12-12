@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.AdministrativeManagementDao">
+	
+	<select id="selectAllConferenceRoomMation" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.room_name roomName,
+			a.room_img roomImg,
+			a.room_capacity roomCapacity,
+			a.room_position roomPosition,
+			a.room_equipment roomEquipment
+		FROM
+			conference_room a
+		WHERE
+			a.state = 1
+			<if test="minCapacity != '' and minCapacity != null">
+				AND a.room_capacity >= #{minCapacity}
+			</if>
+			<if test="maxCapacity != '' and maxCapacity != null">
+				AND #{maxCapacity} >= a.room_capacity
+			</if>
+		ORDER BY
+			a.room_capacity ASC
+	</select>
+
+</mapper>
