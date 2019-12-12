@@ -11,7 +11,7 @@ import com.app.service.hystrix.AppCompanyChatServiceHystrix;
  * 添加fallback属性（在HelloRemote类添加指定fallback类，在服务熔断的时候返回fallback类中的内容）
  * @author 卫志强
  */
-@FeignClient(name= "app-producer-hastoken", fallback = AppCompanyChatServiceHystrix.class)
+@FeignClient(name= "app-producer-hasauth", fallback = AppCompanyChatServiceHystrix.class)
 public interface AppCompanyChatService {
 
     @RequestMapping(value = "/compantUserChan", method = RequestMethod.GET)

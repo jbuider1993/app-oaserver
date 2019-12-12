@@ -25,8 +25,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.app.common.util.ToolUtil;
 import com.app.redis.JedisClientService;
 
-import net.sf.json.JSONArray;
-
 @Aspect
 @Component
 public class AOPOutputObjectput {
@@ -50,7 +48,6 @@ public class AOPOutputObjectput {
 	 * @param pjp
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	@Around("execution(* com.app.producer.*.*(..))")
 	public void doAround(ProceedingJoinPoint pjp) throws Exception {
 		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
@@ -71,15 +68,7 @@ public class AOPOutputObjectput {
 					response.setHeader("SESSIONSTATUS", "TIMEOUT");
 					ToolUtil.sendMessageToPageComJson(response, "您还未登录，请先登录。", "401");
 				}else{
-					//获取请求路径
-//					String url = request.getContextPath() + request.getServletPath();
-//					String key = url.replaceAll("/", "");
-//					List<Map<String, Object>> authPoints = JSONArray.fromObject(jedisClient.get("authPointsMation:" + userToken).toString());//所有权限信息
-//					if(authPoints(authPoints, key)){
-						pjp.proceed();
-//					}else{
-//						ToolUtil.sendMessageToPageComJson(response, "您不具备该权限。", "201");
-//					}
+					pjp.proceed();
 				}
 			}
 			

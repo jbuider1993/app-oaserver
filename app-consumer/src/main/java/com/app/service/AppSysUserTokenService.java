@@ -11,7 +11,7 @@ import com.app.service.hystrix.AppSysUserTokenServiceHystrix;
  * 添加fallback属性（在HelloRemote类添加指定fallback类，在服务熔断的时候返回fallback类中的内容）
  * @author 
  */
-@FeignClient(name= "app-producer-hastoken", fallback = AppSysUserTokenServiceHystrix.class)
+@FeignClient(name= "app-producer-hasauth", fallback = AppSysUserTokenServiceHystrix.class)
 public interface AppSysUserTokenService {
 
     @RequestMapping(value = "/sysUserMation", method = RequestMethod.GET)
