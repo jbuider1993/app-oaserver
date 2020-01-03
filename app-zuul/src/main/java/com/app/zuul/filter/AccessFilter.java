@@ -1,18 +1,10 @@
 package com.app.zuul.filter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.app.common.util.ToolUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -39,7 +31,7 @@ public class AccessFilter extends ZuulFilter {
 	public Object run() {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		HttpServletRequest request = ctx.getRequest();
-		HttpServletResponse response = ctx.getResponse();
+//		HttpServletResponse response = ctx.getResponse();
 		
 		_logger.info("send {} to {}", request.getMethod(), request.getRequestURL().toString());
 		
