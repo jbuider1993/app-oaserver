@@ -48,6 +48,17 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- 实现Config的客户端配置 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!-- 实现通过端点refresh手动刷新 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -63,24 +74,24 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
-		
+
 		<!-- quartz任务调度框架 -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
 			<version>${quartz.version}</version>
 			<exclusions>
-                <exclusion>
-                    <artifactId>c3p0</artifactId>
-                    <groupId>com.mchange</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>HikariCP-java6</artifactId>
-                    <groupId>com.zaxxer</groupId>
-                </exclusion>
-            </exclusions>
+				<exclusion>
+					<artifactId>c3p0</artifactId>
+					<groupId>com.mchange</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>HikariCP-java6</artifactId>
+					<groupId>com.zaxxer</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
 		<!-- mq消息通知 -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
@@ -95,7 +106,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
 		</dependency>
-		
+
 		<!-- aop切面 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -122,7 +133,7 @@
 			<artifactId>mybatis-paginator</artifactId>
 			<version>${mybatis.paginator.version}</version>
 		</dependency>
-		
+
 		<!-- MySql数据库连接包 -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -136,28 +147,28 @@
 			<artifactId>druid</artifactId>
 			<version>${druid.version}</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- 工具 -->
 		<dependency>
-		    <groupId>com.app</groupId>
-		    <artifactId>app-common</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
+			<groupId>com.app</groupId>
+			<artifactId>app-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<!-- 权限注解模块 -->
 		<dependency>
-		    <groupId>com.app</groupId>
-		    <artifactId>app-common-auth-annotation</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
+			<groupId>com.app</groupId>
+			<artifactId>app-common-auth-annotation</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<!-- actuator监控 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -179,7 +190,7 @@
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
