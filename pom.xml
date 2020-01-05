@@ -13,13 +13,13 @@
     <module>app-zuul</module>
     <module>app-zipkin</module>
     <module>app-common</module>
-    <module>app-pro-disk-cloud</module>
-    <module>app-pro-user</module>
     <module>app-solr</module>
     <module>app-common-auth-annotation</module>
     <module>app-common-redis</module>
     <module>app-monitor</module>
     <module>app-config</module>
+    <module>app-pro-disk-cloud</module>
+    <module>app-pro-user</module>
     <module>app-pro-sys</module>
     <module>app-pro-jobdiary</module>
     <module>app-pro-note</module>
