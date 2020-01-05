@@ -31,7 +31,7 @@ public class Consumer {
 	public void receive(String data) throws Exception {// 这个data就是从消息队列获得到的参数
 		Map<String, Object> map = JSONObject.fromObject(data);
 		String type = map.get("type").toString();
-		
+		System.out.println(type);
 	}
 	
 }

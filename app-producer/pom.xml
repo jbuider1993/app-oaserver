@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.app</groupId>
-	<artifactId>app-producer</artifactId>
+	<artifactId>app-pro-apk</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>app-producer</name>
-	<description>服务提供者</description>
+	<name>app-pro-apk</name>
+	<description>手机端登录</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

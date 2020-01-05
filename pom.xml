@@ -9,19 +9,21 @@
 	
   <modules>
     <module>app-eureka</module>
-    <module>app-producer</module>
     <module>app-consumer</module>
     <module>app-zuul</module>
     <module>app-zipkin</module>
     <module>app-common</module>
-    <module>app-producer-hastoken</module>
-    <module>app-producer-hasauth</module>
+    <module>app-pro-disk-cloud</module>
+    <module>app-pro-user</module>
     <module>app-solr</module>
-    <module>app-producer-wechat</module>
-    <module>app-consumer-wechat</module>
     <module>app-common-auth-annotation</module>
     <module>app-common-redis</module>
     <module>app-monitor</module>
     <module>app-config</module>
+    <module>app-pro-sys</module>
+    <module>app-pro-jobdiary</module>
+    <module>app-pro-note</module>
+    <module>app-pro-sticky-notes</module>
+    <module>app-pro-adminstra</module>
   </modules>
 </project>
