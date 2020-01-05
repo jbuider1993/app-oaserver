@@ -26,6 +26,19 @@
 - 网关zuul
 - 熔断监控Hystrix；地址：http://localhost:8005
 - API接口文档；地址：http://localhost:8888/doc.html
+- 统一配置中心；地址：http://localhost:8900
+
+#### 模块及端口
+
+|模块|端口|模块|端口|
+|-------|-------|-------|-------|
+|服务注册中心|8000|服务监控中心|8100|
+|网关zuul|8888|熔断监控Hystrix|8005|
+|配置中心|8900| | |
+|登录模块【app-pro-user】|9004|系统管理模块【app-pro-sys】|9005|
+|行政模块【app-pro-adminstra】|9006|工作日志模块【app-pro-jobdiary】|9007|
+|笔记模块【app-pro-note】|9008|便签模块【app-pro-sticky-notes】|9009|
+|文件管理（云盘）模块【app-pro-disk-cloud】|9010|||
 
 #### 服务器部署注意事项
 
