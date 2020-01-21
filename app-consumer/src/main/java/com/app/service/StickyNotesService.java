@@ -12,7 +12,7 @@ import com.app.service.hystrix.StickyNotesServiceHystrix;
  * 添加fallback属性（在HelloRemote类添加指定fallback类，在服务熔断的时候返回fallback类中的内容）
  * @author 卫志强
  */
-@FeignClient(name= "app-producer-hasauth", fallback = StickyNotesServiceHystrix.class)
+@FeignClient(name= "app-pro-sticky-notes", fallback = StickyNotesServiceHystrix.class)
 public interface StickyNotesService {
 	
 	@RequestMapping(value = "/stickyNotes", method = RequestMethod.GET)

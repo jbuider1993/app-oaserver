@@ -11,7 +11,7 @@ import com.app.service.hystrix.AppMyNoteServiceHystrix;
  * 添加fallback属性（在HelloRemote类添加指定fallback类，在服务熔断的时候返回fallback类中的内容）
  * @author 
  */
-@FeignClient(name= "app-producer-hasauth", fallback = AppMyNoteServiceHystrix.class)
+@FeignClient(name= "app-pro-note", fallback = AppMyNoteServiceHystrix.class)
 public interface AppMyNoteService {
 
     @RequestMapping(value = "/myNote", method = RequestMethod.GET)

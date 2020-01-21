@@ -13,7 +13,7 @@ import com.app.service.hystrix.ConferenceRoomServiceHystrix;
  * 添加fallback属性（在HelloRemote类添加指定fallback类，在服务熔断的时候返回fallback类中的内容）
  * @author 
  */
-@FeignClient(name= "app-producer-hasauth", fallback = ConferenceRoomServiceHystrix.class)
+@FeignClient(name= "app-pro-adminstra", fallback = ConferenceRoomServiceHystrix.class)
 public interface ConferenceRoomService {
 
     @RequestMapping(value = "/selectAllConferenceRoomMation", method = RequestMethod.GET)
