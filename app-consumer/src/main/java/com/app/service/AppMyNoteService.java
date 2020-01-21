@@ -1,6 +1,7 @@
 package com.app.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,11 +16,11 @@ import com.app.service.hystrix.AppMyNoteServiceHystrix;
 public interface AppMyNoteService {
 
     @RequestMapping(value = "/myNote", method = RequestMethod.GET)
-    public String queryNoteAllFile(@RequestParam(value = "userToken") String userToken);
+    public String queryNoteAllFile(@RequestHeader(value = "userToken") String userToken);
     
     @RequestMapping(value = "/myNoteDetail", method = RequestMethod.GET)
-    public String queryNoteContent(@
-    		RequestParam(value = "userToken") String userToken, 
+    public String queryNoteContent(
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "id") String id);
     
     @RequestMapping(value = "/myNewNote", method = RequestMethod.GET)
@@ -27,13 +28,13 @@ public interface AppMyNoteService {
     
     @RequestMapping(value = "/myNoteFolder", method = RequestMethod.POST)
     public String addNoteFolder(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "id") String id, @
     		RequestParam(value = "name") String name);
    
     @RequestMapping(value = "/myNote", method = RequestMethod.POST)
     public String addNoteContent(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "pid") String pid, 
     		@RequestParam(value = "name") String name, 
     		@RequestParam(value = "type") String type, 
@@ -42,14 +43,14 @@ public interface AppMyNoteService {
 
     @RequestMapping(value = "/myNoteFileName", method = RequestMethod.PUT)
     public String editNoteFileName(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "id") String id, 
     		@RequestParam(value = "name") String name, 
     		@RequestParam(value = "type") String type);
 
     @RequestMapping(value = "/myNote", method = RequestMethod.PUT)
     public String editNoteContent(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "id") String id, 
     		@RequestParam(value = "name") String name, 
     		@RequestParam(value = "desc") String desc, 
@@ -57,19 +58,19 @@ public interface AppMyNoteService {
    
     @RequestMapping(value = "/myNote", method = RequestMethod.DELETE)
     public String deleteFileFolderById(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "id") String id, 
     		@RequestParam(value = "type") String type);
 
     @RequestMapping(value = "/myMoveToFile", method = RequestMethod.GET)
     public String queryMoveToFile(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "id") String id, 
     		@RequestParam(value = "type") String type);
 
     @RequestMapping(value = "/myMoveToFile", method = RequestMethod.POST)
     public String editNoteToMoveById(
-    		@RequestParam(value = "userToken") String userToken, 
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "moveid") String moveid, 
     		@RequestParam(value = "toid") String toid, 
     		@RequestParam(value = "type") String type);

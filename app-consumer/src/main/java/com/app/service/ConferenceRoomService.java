@@ -17,7 +17,8 @@ import com.app.service.hystrix.ConferenceRoomServiceHystrix;
 public interface ConferenceRoomService {
 
     @RequestMapping(value = "/selectAllConferenceRoomMation", method = RequestMethod.GET)
-    public String selectAllConferenceRoomMation(@RequestHeader(value = "userToken") String userToken, 
+    public String selectAllConferenceRoomMation(
+    		@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page, 
     		@RequestParam(value = "minCapacity") int minCapacity, 

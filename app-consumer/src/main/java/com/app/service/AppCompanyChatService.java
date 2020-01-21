@@ -1,9 +1,9 @@
 package com.app.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.service.hystrix.AppCompanyChatServiceHystrix;
 
@@ -15,6 +15,6 @@ import com.app.service.hystrix.AppCompanyChatServiceHystrix;
 public interface AppCompanyChatService {
 
     @RequestMapping(value = "/compantUserChan", method = RequestMethod.GET)
-    public String querycompanyDepartment(@RequestParam(value = "userToken") String userToken);
+    public String querycompanyDepartment(@RequestHeader(value = "userToken") String userToken);
 
 }

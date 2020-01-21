@@ -2,6 +2,7 @@ package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.AppCompanyChatService;
@@ -27,8 +28,8 @@ public class AppCompanyChatController {
 	 */
 	@GetMapping("/compantUserChan")
 	@ApiOperation(value = "获取通讯录数据", notes = "获取通讯录数据", produces = "application/json")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query") })
-	public String querycompanyDepartment(String userToken) {
+	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header") })
+	public String querycompanyDepartment(@RequestHeader String userToken) {
 		return appCompanyChatService.querycompanyDepartment(userToken); 
 	}
 	

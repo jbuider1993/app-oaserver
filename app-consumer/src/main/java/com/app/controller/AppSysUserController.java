@@ -50,7 +50,7 @@ public class AppSysUserController {
 	 */
 	@GetMapping("/sysUserMation")
 	@ApiOperation(value = "从session中获取用户的信息", notes = "从session中获取用户的信息", produces = "application/json")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query") })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header") })
 	public String querySysUserMation(@RequestHeader String userToken) {
 		return appSysUserTokenService.querySysUserMation(userToken);
 	}
@@ -64,7 +64,7 @@ public class AppSysUserController {
 	 */
 	@PostMapping("/logout")
 	@ApiOperation(value = "APP手机端用户注销", notes = "APP手机端用户注销", produces = "application/json")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "query") })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header") })
 	public String logout(@RequestHeader String userToken) {
 		return appSysUserTokenService.logout(userToken);
 	}
