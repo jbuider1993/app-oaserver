@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.SealSeServiceDao">
+	
+	<select id="querySealServiceWaitToWorkOrder" resultType="java.util.Map">
+        SELECT
+        	a.id,
+			a.order_num orderNum,
+			b.`name` serviceTypeName,
+			a.customer_name customerName,
+			a.product_name productName,
+			CONVERT(a.declaration_time, CHAR) declarationTime
+		FROM
+			crm_service a,
+		 	crm_service_type b
+		WHERE
+			a.state = 1
+		AND	a.type_id = b.id
+        ORDER BY a.declaration_time desc
+    </select>
+    
+</mapper>

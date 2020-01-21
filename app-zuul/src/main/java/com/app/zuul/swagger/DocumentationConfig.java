@@ -25,6 +25,7 @@ public class DocumentationConfig implements SwaggerResourcesProvider {
 		// 2.访问指定接口
 		List<SwaggerResource> resources = new ArrayList<>();
         resources.add(swaggerResource("API权限接口", "/app/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("售后服务API接口", "/seal/v2/api-docs", "2.0"));
 		return resources;
 	}
 

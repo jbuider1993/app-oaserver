@@ -25,5 +25,7 @@
     <module>app-pro-note</module>
     <module>app-pro-sticky-notes</module>
     <module>app-pro-adminstra</module>
+    <module>app-consumer-seal-service</module>
+    <module>app-pro-seal-service</module>
   </modules>
 </project>
