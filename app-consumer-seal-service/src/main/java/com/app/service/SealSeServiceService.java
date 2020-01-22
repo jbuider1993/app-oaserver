@@ -59,4 +59,9 @@ public interface SealSeServiceService {
 			@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page);
 
+	@RequestMapping(value = "/sealServiceAllFinishedOrder", method = RequestMethod.GET)
+	public String queryAllSealSeServiceFinishedList(
+			@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+
 }

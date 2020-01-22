@@ -150,4 +150,21 @@
         ORDER BY a.declaration_time desc
     </select>
     
+    <select id="queryAllSealSeServiceFinishedList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        	a.id,
+			a.order_num orderNum, #工单号
+			b.`name` serviceTypeName, #服务类型
+			a.customer_name customerName, #客户名称
+			a.product_name productName, #产品名称
+			CONVERT(a.declaration_time, CHAR) declarationTime #报单时间
+		FROM
+			crm_service a,
+		 	crm_service_type b
+		WHERE
+			a.state = 7
+		AND	a.type_id = b.id
+        ORDER BY a.declaration_time desc
+    </select>
+    
 </mapper>

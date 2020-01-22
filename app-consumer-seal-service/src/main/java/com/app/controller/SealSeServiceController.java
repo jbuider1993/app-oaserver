@@ -151,4 +151,20 @@ public class SealSeServiceController {
 		return sealSeServiceService.queryAllSealSeServiceWaitToCheckList(limit, page); 
 	}
 	
+	/**
+	 * 
+	     * @Title: sealServiceAllFinishedOrder
+	     * @Description: 获取全部已完成的列表
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceAllFinishedOrder")
+	@ApiOperation(value = "获取全部已完成的列表", notes = "获取全部已完成的列表", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
+	public String queryAllSealSeServiceFinishedList(int limit, int page) {
+		return sealSeServiceService.queryAllSealSeServiceFinishedList(limit, page); 
+	}
+	
 }

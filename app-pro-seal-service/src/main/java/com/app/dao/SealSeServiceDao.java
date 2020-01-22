@@ -24,5 +24,7 @@ public interface SealSeServiceDao {
 	public List<Map<String, Object>> queryAllSealSeServiceWaitToAssessmentList(PageBounds pageBounds);
 
 	public List<Map<String, Object>> queryAllSealSeServiceWaitToCheckList(PageBounds pageBounds);
+
+	public List<Map<String, Object>> queryAllSealSeServiceFinishedList(PageBounds pageBounds);
 	
 }
