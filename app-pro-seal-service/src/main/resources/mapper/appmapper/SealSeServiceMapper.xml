@@ -98,4 +98,39 @@
         ORDER BY a.declaration_time desc
     </select>
     
+    <select id="querySealSeServiceWaitToAssessmentList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        	a.id,
+			a.order_num orderNum,
+			b.`name` serviceTypeName,
+			a.customer_name customerName,
+			a.product_name productName,
+			CONVERT(a.declaration_time, CHAR) declarationTime
+		FROM
+			crm_service a,
+		 	crm_service_type b
+		WHERE
+			a.service_user_id = #{receiver}
+		AND	a.state = 5
+		AND	a.type_id = b.id
+        ORDER BY a.declaration_time desc
+    </select>
+    
+    <select id="queryAllSealSeServiceWaitToAssessmentList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        	a.id,
+			a.order_num orderNum,
+			b.`name` serviceTypeName,
+			a.customer_name customerName,
+			a.product_name productName,
+			CONVERT(a.declaration_time, CHAR) declarationTime
+		FROM
+			crm_service a,
+		 	crm_service_type b
+		WHERE
+			a.state = 5
+		AND	a.type_id = b.id
+        ORDER BY a.declaration_time desc
+    </select>
+    
 </mapper>

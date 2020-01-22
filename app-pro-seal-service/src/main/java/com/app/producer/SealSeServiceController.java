@@ -115,4 +115,39 @@ public class SealSeServiceController {
 		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
 	}
 	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToFinishList
+	     * @Description: 获取当前登录人待评价的列表
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceWaitToAssessmentOrder")
+	public void querySealSeServiceWaitToAssessmentList(HttpServletResponse response, 
+			@RequestHeader String userToken, 
+			@RequestParam int limit, 
+			@RequestParam int page) {
+		List<Map<String, Object>> beans = sealSeServiceDao.querySealSeServiceWaitToAssessmentList(userToken, new PageBounds(page, limit));
+		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
+		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
+	}
+	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToFinishList
+	     * @Description: 获取当前登录人待评价的列表
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceAllWaitToAssessmentOrder")
+	public void queryAllSealSeServiceWaitToAssessmentList(HttpServletResponse response, 
+			@RequestParam int limit, 
+			@RequestParam int page) {
+		List<Map<String, Object>> beans = sealSeServiceDao.queryAllSealSeServiceWaitToAssessmentList(new PageBounds(page, limit));
+		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
+		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
+	}
+	
 }

@@ -43,4 +43,15 @@ public interface SealSeServiceService {
     		@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page);
 
+	@RequestMapping(value = "/sealServiceWaitToAssessmentOrder", method = RequestMethod.GET)
+	public String querySealSeServiceWaitToAssessmentList(
+			@RequestHeader(value = "userToken") String userToken, 
+    		@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+
+	@RequestMapping(value = "/sealServiceAllWaitToAssessmentOrder", method = RequestMethod.GET)
+	public String queryAllSealSeServiceWaitToAssessmentList(
+			@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+
 }

@@ -102,4 +102,37 @@ public class SealSeServiceController {
 		return sealSeServiceService.querySealSeServiceWaitToFinishList(userToken, limit, page); 
 	}
 	
+	/**
+	 * 
+	     * @Title: sealServiceWaitToAssessmentOrder
+	     * @Description: 获取当前登录人待评价的列表
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceWaitToAssessmentOrder")
+	@ApiOperation(value = "获取当前登录人待评价的列表", notes = "获取当前登录人待评价的列表", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
+	public String querySealSeServiceWaitToAssessmentList(@RequestHeader String userToken, int limit, int page) {
+		return sealSeServiceService.querySealSeServiceWaitToAssessmentList(userToken, limit, page); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealServiceAllWaitToAssessmentOrder
+	     * @Description: 获取全部待评价的列表
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceAllWaitToAssessmentOrder")
+	@ApiOperation(value = "获取全部待评价的列表", notes = "获取全部待评价的列表", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
+	public String queryAllSealSeServiceWaitToAssessmentList(int limit, int page) {
+		return sealSeServiceService.queryAllSealSeServiceWaitToAssessmentList(limit, page); 
+	}
+	
 }
