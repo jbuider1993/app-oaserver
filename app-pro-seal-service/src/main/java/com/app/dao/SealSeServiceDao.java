@@ -16,5 +16,7 @@ public interface SealSeServiceDao {
 	public List<Map<String, Object>> querySealSeServiceWaitToReceiveList(@Param("receiver") String userToken, PageBounds pageBounds);
 
 	public List<Map<String, Object>> querySealSeServiceWaitToSignonList(@Param("receiver") String userToken, PageBounds pageBounds);
+
+	public List<Map<String, Object>> querySealSeServiceWaitToFinishList(@Param("receiver") String userToken, PageBounds pageBounds);
 	
 }

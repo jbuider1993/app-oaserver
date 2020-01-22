@@ -80,4 +80,22 @@
         ORDER BY a.declaration_time desc
     </select>
     
+    <select id="querySealSeServiceWaitToFinishList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+        	a.id,
+			a.order_num orderNum,
+			b.`name` serviceTypeName,
+			a.customer_name customerName,
+			a.product_name productName,
+			CONVERT(a.declaration_time, CHAR) declarationTime
+		FROM
+			crm_service a,
+		 	crm_service_type b
+		WHERE
+			a.service_user_id = #{receiver}
+		AND	a.state = 4
+		AND	a.type_id = b.id
+        ORDER BY a.declaration_time desc
+    </select>
+    
 </mapper>

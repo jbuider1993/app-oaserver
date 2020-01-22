@@ -97,4 +97,22 @@ public class SealSeServiceController {
 		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
 	}
 	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToFinishList
+	     * @Description: 获取当前登录人待完工的列表
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceWaitToFinishOrder")
+	public void querySealSeServiceWaitToFinishList(HttpServletResponse response, 
+			@RequestHeader String userToken, 
+			@RequestParam int limit, 
+			@RequestParam int page) {
+		List<Map<String, Object>> beans = sealSeServiceDao.querySealSeServiceWaitToFinishList(userToken, new PageBounds(page, limit));
+		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
+		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
+	}
+	
 }
