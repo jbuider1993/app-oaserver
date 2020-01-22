@@ -54,4 +54,9 @@ public interface SealSeServiceService {
 			@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page);
 
+	@RequestMapping(value = "/sealServiceAllWaitToCheckOrder", method = RequestMethod.GET)
+	public String queryAllSealSeServiceWaitToCheckList(
+			@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+
 }
