@@ -15,8 +15,24 @@ import com.app.service.hystrix.SealSeServiceServiceHystrix;
 @FeignClient(name= "app-pro-seal-service", fallback = SealSeServiceServiceHystrix.class)
 public interface SealSeServiceService {
 	
+	@RequestMapping(value = "/sealServiceOrder", method = RequestMethod.GET)
+	public String querySealSeServiceList(
+    		@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+	
 	@RequestMapping(value = "/sealServiceWaitToWorkOrder", method = RequestMethod.GET)
 	public String querySealServiceWaitToWorkOrder(
+    		@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+
+	@RequestMapping(value = "/sealServiceWaitToReceiveOrder", method = RequestMethod.GET)
+	public String querySealSeServiceWaitToReceiveList(
+			@RequestHeader(value = "userToken") String userToken, 
+    		@RequestParam(value = "limit") int limit, 
+    		@RequestParam(value = "page") int page);
+
+	@RequestMapping(value = "/sealServiceWaitToSignonOrder", method = RequestMethod.GET)
+	public String querySealSeServiceWaitToSignonList(
 			@RequestHeader(value = "userToken") String userToken, 
     		@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page);

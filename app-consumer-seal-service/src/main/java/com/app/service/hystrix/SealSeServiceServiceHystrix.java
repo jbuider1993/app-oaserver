@@ -8,8 +8,24 @@ import com.app.service.SealSeServiceService;
 public class SealSeServiceServiceHystrix implements SealSeServiceService{
 
 	@Override
-	public String querySealServiceWaitToWorkOrder(String userToken, int limit, int page) {
+	public String querySealSeServiceList(int limit, int page) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
+	
+	@Override
+	public String querySealServiceWaitToWorkOrder(int limit, int page) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String querySealSeServiceWaitToReceiveList(String userToken, int limit, int page) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String querySealSeServiceWaitToSignonList(String userToken, int limit, int page) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
 
 }

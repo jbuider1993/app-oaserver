@@ -21,6 +21,22 @@ public class SealSeServiceController {
 	
 	/**
 	 * 
+	     * @Title: sealServiceOrder
+	     * @Description: 获取全部工单列表
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceOrder")
+	@ApiOperation(value = "获取全部工单列表", notes = "获取全部工单列表", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
+	public String querySealSeServiceList(int limit, int page) {
+		return sealSeServiceService.querySealSeServiceList(limit, page); 
+	}
+	
+	/**
+	 * 
 	     * @Title: sealServiceWaitToWorkOrder
 	     * @Description: 获取全部待派工的工单列表
 	     * @return String 返回类型
@@ -29,11 +45,44 @@ public class SealSeServiceController {
 	@GetMapping("/sealServiceWaitToWorkOrder")
 	@ApiOperation(value = "获取全部待派工的工单列表", notes = "获取全部待派工的工单列表", produces = "application/json")
 	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
+	public String querySealServiceWaitToWorkOrder(int limit, int page) {
+		return sealSeServiceService.querySealServiceWaitToWorkOrder(limit, page); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealServiceWaitToReceiveOrder
+	     * @Description: 获取当前登录人待接单的列表
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceWaitToReceiveOrder")
+	@ApiOperation(value = "获取当前登录人待接单的列表", notes = "获取当前登录人待接单的列表", produces = "application/json")
+	@ApiImplicitParams({ 
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
 		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
 		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
-	public String querySealServiceWaitToWorkOrder(@RequestHeader String userToken, int limit, int page) {
-		return sealSeServiceService.querySealServiceWaitToWorkOrder(userToken, limit, page); 
+	public String querySealSeServiceWaitToReceiveList(@RequestHeader String userToken, int limit, int page) {
+		return sealSeServiceService.querySealSeServiceWaitToReceiveList(userToken, limit, page); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealServiceWaitToSignonOrder
+	     * @Description: 获取当前登录人待签到的列表
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceWaitToSignonOrder")
+	@ApiOperation(value = "获取当前登录人待签到的列表", notes = "获取当前登录人待签到的列表", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "limit", value = "分页参数,每页多少条数据", dataType = "Integer", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "page", value = "分页参数,第几页", dataType = "Integer", required = true, paramType = "query") })
+	public String querySealSeServiceWaitToSignonList(@RequestHeader String userToken, int limit, int page) {
+		return sealSeServiceService.querySealSeServiceWaitToSignonList(userToken, limit, page); 
 	}
 	
 }

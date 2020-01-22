@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,23 @@ public class SealSeServiceController {
 	
 	/**
 	 * 
+	     * @Title: querySealSeServiceList
+	     * @Description: 获取全部工单列表
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceOrder")
+	public void querySealSeServiceList(HttpServletResponse response, 
+			@RequestParam int limit, 
+			@RequestParam int page) {
+		List<Map<String, Object>> beans = sealSeServiceDao.querySealSeServiceList(new PageBounds(page, limit));
+		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
+		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
+	}
+	
+	/**
+	 * 
 	     * @Title: querySealServiceWaitToWorkOrder
 	     * @Description: 获取全部待派工的工单列表
 	     * @param @throws Exception    参数
@@ -39,6 +57,42 @@ public class SealSeServiceController {
 			@RequestParam int limit, 
 			@RequestParam int page) {
 		List<Map<String, Object>> beans = sealSeServiceDao.querySealServiceWaitToWorkOrder(new PageBounds(page, limit));
+		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
+		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
+	}
+	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToReceiveList
+	     * @Description: 获取当前登录人待接单的列表
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceWaitToReceiveOrder")
+	public void querySealSeServiceWaitToReceiveList(HttpServletResponse response, 
+			@RequestHeader String userToken, 
+			@RequestParam int limit, 
+			@RequestParam int page) {
+		List<Map<String, Object>> beans = sealSeServiceDao.querySealSeServiceWaitToReceiveList(userToken, new PageBounds(page, limit));
+		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
+		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
+	}
+	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToSignonList
+	     * @Description: 获取当前登录人待签到的列表
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceWaitToSignonOrder")
+	public void querySealSeServiceWaitToSignonList(HttpServletResponse response, 
+			@RequestHeader String userToken, 
+			@RequestParam int limit, 
+			@RequestParam int page) {
+		List<Map<String, Object>> beans = sealSeServiceDao.querySealSeServiceWaitToSignonList(userToken, new PageBounds(page, limit));
 		PageList<Map<String, Object>> beansPageList = (PageList<Map<String, Object>>)beans;
 		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
 	}
