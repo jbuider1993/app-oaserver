@@ -26,5 +26,17 @@ public interface SealSeServiceDao {
 	public List<Map<String, Object>> queryAllSealSeServiceWaitToCheckList(PageBounds pageBounds);
 
 	public List<Map<String, Object>> queryAllSealSeServiceFinishedList(PageBounds pageBounds);
+
+	public Map<String, Object> querySealSeServiceToDetails(@Param("id") String id);
+
+	public List<Map<String, Object>> queryEnclosureInfo(Map<String, Object> bean);
+
+	public List<Map<String, Object>> queryComEnclosureInfo(Map<String, Object> bean);
+
+	public List<Map<String, Object>> queryCooperationUserNameById(@Param("id") String id);
+
+	public List<Map<String, Object>> queryMaterialMationById(@Param("id") String id);
+
+	public List<Map<String, Object>> queryFeedbackMationById(@Param("id") String id);
 	
 }

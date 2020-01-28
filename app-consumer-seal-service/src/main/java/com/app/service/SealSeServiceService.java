@@ -64,4 +64,7 @@ public interface SealSeServiceService {
 			@RequestParam(value = "limit") int limit, 
     		@RequestParam(value = "page") int page);
 
+	@RequestMapping(value = "/sealServiceOrderDetail", method = RequestMethod.GET)
+	public String querySealSeServiceDetail(@RequestParam(value = "id") String id);
+
 }

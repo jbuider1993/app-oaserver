@@ -167,4 +167,153 @@
         ORDER BY a.declaration_time desc
     </select>
     
+    <select id="querySealSeServiceToDetails" resultType="java.util.Map">
+        SELECT
+			a.id,
+			a.order_num orderNum,#工单号
+			IFNULL(b.`name`, '') serviceTypeName,#服务类型
+			a.state,
+			CASE a.state WHEN '1' THEN '待派工' WHEN '2' THEN '待接单' WHEN '3' THEN '待签到' WHEN '4' THEN '待完工' WHEN '5' THEN '待评价' WHEN '6' THEN '待审核' WHEN '7' THEN '已完工' END stateName,#工单状态
+			CASE a.parent_id WHEN '0' THEN '主工单' ELSE '子工单' END workOrderClassification,#工单类别
+			CONVERT(a.declaration_time, CHAR) declarationTime,#报单时间
+			a.contacts,#联系人
+			a.phone,#联系电话
+			a.email, #邮箱
+			a.qq, #qq
+			a.customer_id customerId, #客户id
+			a.customer_name customerName,#客户名称
+			IFNULL(o.`name`, '') addressProvince,#省
+			IFNULL(p.`name`, '') addressCity,#市
+			IFNULL(q.`name`, '') addressArea, #区、乡、县
+			IFNULL(r.`name`, '') addressTownship, #镇、街道
+			IFNULL(a.address_detailed, '') addressDetailed,#详细地址
+			a.product_id productId,#产品id
+			IFNULL(a.product_name, '') productName,#产品名称
+			IFNULL(a.product_norms, '') productNorms,#规格型号
+			IFNULL(a.product_serial_num, '') productSerialNum,#序列号
+			CASE a.product_warranty WHEN '1' THEN '保内' WHEN '2' THEN '保外' else '' END productWarranty,#质保类型
+			IFNULL(e.`name`, '') faultName,#故障类型
+			c.`name` urgencyName,#紧急程度
+			a.content,#服务内容
+			f.`name` modeName,#处理方式
+			IFNULL(g.user_name, '') receiver,#工单接收人
+			IFNULL(a.cooperation_user_id, '') cooperationUserId,#工单协助人
+			IFNULL(a.sheet_picture, '') sheetPicture,#上传照片
+			IFNULL(a.enclosure_info, '') enclosureInfo,#上传附件
+			IFNULL(d.com_pic, '') comPic,#完工拍照
+			IFNULL(d.com_enclosure_info, '') comEnclosureInfo,#完工附件
+			IFNULL(d.com_remark, '') comRemark,#完工备注
+			CASE a.type WHEN '1' THEN '微信报单' WHEN '2' THEN '用户报单' END comeType, #来源
+			IFNULL(h.reason, '') reason,#改派原因
+			IFNULL(i.address, '') registerAddress, #签到地址
+			IFNULL(i.remark, '') remark, #签到备注
+			IFNULL(j.remark, '') receiptRemark, #接单备注
+			IFNULL(j.subscribe_time, '') subscribeTime,#实际开工时间
+			IFNULL(d.com_time, '') comTime,#实际完工时间
+			IFNULL(d.com_work_time, '') comWorkTime,#工时
+			IFNULL(d.com_execution, '') comExecution, #完成情况
+			IFNULL(format(d.material_cost, 2), '') materialCost, #应收客户材料费
+			IFNULL(format(d.cover_cost, 2), '') coverCost, #应收客户服务费
+			IFNULL(format(d.other_cost, 2), '') otherCost,#应收客户其他费
+			IFNULL(format(d.all_price, 2), '') allPrice, #应收客户合计
+			IFNULL(k.`name`, '') evaluateTypeName, #评价类型
+			IFNULL(s.content, '') evaluateContent, #评价内容
+			t.user_name createName #工单创建人
+		FROM
+			crm_service a
+			LEFT JOIN crm_service_fault d ON a.id = d.service_id
+			LEFT JOIN crm_service_fault_type e ON d.type_id = e.id
+			LEFT JOIN crm_service_transfer h ON a.id = h.service_id
+			LEFT JOIN crm_service_register i ON a.id = i.service_id
+			LEFT JOIN crm_service_receipt j ON a.id = j.service_id
+			LEFT JOIN t_area o ON a.address_province = o.id
+			LEFT JOIN t_area p ON a.address_city = p.id
+			LEFT JOIN t_area q ON a.address_area = q.id
+			LEFT JOIN t_area r ON a.address_township = r.id
+			LEFT JOIN crm_service_evaluate s ON a.id = s.service_id
+			LEFT JOIN crm_service_evaluate_type k ON k.id = s.type_id
+			LEFT JOIN sys_eve_user_staff t ON a.create_id = t.user_id
+			LEFT JOIN sys_eve_user_staff g ON a.service_user_id = g.user_id,
+		 	crm_service_type b,
+			crm_service_urgency c,
+			crm_service_mode f
+		WHERE
+			a.id = #{id}
+			AND a.type_id = b.id
+			AND a.urgency_id = c.id
+			AND a.mode_id = f.id
+    </select>
+    
+    <select id="queryEnclosureInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			id,
+			file_name name,
+			file_address fileAddress
+		FROM
+			sys_enclosure
+		WHERE
+			instr(concat(',', #{enclosureInfo},','),concat(',', id, ','));
+	</select>
+	
+	<select id="queryComEnclosureInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			id,
+			file_name name,
+			file_address fileAddress
+		FROM
+			sys_enclosure
+		WHERE
+			instr(concat(',', #{comEnclosureInfo},','),concat(',', id, ','));
+	</select>
+	
+	<select id="queryCooperationUserNameById" resultType="java.util.Map">
+		SELECT
+			b.user_id id,
+			b.user_name `name`,
+			b.email
+		FROM
+			crm_service a,
+			sys_eve_user_staff b
+		WHERE
+			a.id = #{id}
+		AND INSTR(CONCAT(',',a.cooperation_user_id,','),CONCAT(',',b.user_id,','))
+	</select>
+	
+	<select id="queryMaterialMationById" resultType="java.util.Map">
+		SELECT
+			a.material_id materialId,
+			a.material_name materialName,#配件名称
+			a.material_model materialModel,#配件规格
+			CASE b.unit WHEN '1' THEN b.unit_name ELSE d.`name` END unitName,#商品计量单位
+			SUM(a.oper_number) operNumber,#使用数量
+			FORMAT(a.unit_price, 2) unitPrice, #单价
+			FORMAT(a.all_price, 2) allPrice, #总金额
+			a.remark #备注
+		FROM
+			crm_service_fault_use_material a,
+			erp_material b,
+			erp_material_norms c
+			LEFT JOIN erp_unit d ON d.id = c.unit_id
+		WHERE a.service_id = #{id}
+		AND a.material_id = b.id
+		AND a.m_unit_id = c.id
+		GROUP BY a.m_unit_id
+	</select>
+	
+	<select id="queryFeedbackMationById" resultType="java.util.Map">
+		SELECT
+			a.id,
+			b.`name` typeName,#反馈类型
+			a.content,#反馈内容
+			a.enclosure_info enclosureInfo,#反馈附件
+			c.user_name feedbackUserName,#反馈人
+			CONVERT(a.create_time, CHAR) feedbackCreateTime #反馈时间
+		FROM
+			crm_service_feedback a
+			LEFT JOIN sys_eve_user_staff c ON a.create_id = c.user_id,
+			crm_service_feedback_type b
+		WHERE a.service_id = #{id}
+		AND a.type_id = b.id
+	</select>
+    
 </mapper>

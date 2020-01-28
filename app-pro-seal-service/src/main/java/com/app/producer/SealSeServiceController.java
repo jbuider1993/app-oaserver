@@ -184,4 +184,29 @@ public class SealSeServiceController {
 		ToolUtil.sendMessageToPageComJson(response, beans, beansPageList.getPaginator().getTotalCount());
 	}
 	
+	/**
+	 * 
+	     * @Title: querySealSeServiceDetail
+	     * @Description: 获取工单详情
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceOrderDetail")
+	public void querySealSeServiceDetail(HttpServletResponse response, 
+			@RequestParam String id) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceToDetails(id);
+		//集合中放入附件信息
+		bean.put("enclosureInfo", sealSeServiceDao.queryEnclosureInfo(bean));
+		//集合中放入完工附件信息
+		bean.put("comEnclosureInfo", sealSeServiceDao.queryComEnclosureInfo(bean));
+        //集合中放入工单协助人信息
+        bean.put("cooperationUserId", sealSeServiceDao.queryCooperationUserNameById(id));
+        //集合中放入配件使用信息
+        bean.put("materialMation", sealSeServiceDao.queryMaterialMationById(id));
+        //集合中放入反馈信息
+        bean.put("feedbackMation", sealSeServiceDao.queryFeedbackMationById(id));
+        ToolUtil.sendMessageToPageComJson(response, bean);
+	}
+	
 }

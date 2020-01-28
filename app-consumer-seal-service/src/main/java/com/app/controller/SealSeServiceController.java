@@ -167,4 +167,19 @@ public class SealSeServiceController {
 		return sealSeServiceService.queryAllSealSeServiceFinishedList(limit, page); 
 	}
 	
+	/**
+	 * 
+	     * @Title: sealServiceOrderDetail
+	     * @Description: 获取工单详情
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceOrderDetail")
+	@ApiOperation(value = "获取工单详情", notes = "获取工单详情", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
+	public String querySealSeServiceDetail(String id) {
+		return sealSeServiceService.querySealSeServiceDetail(id); 
+	}
+	
 }
