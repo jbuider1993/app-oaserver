@@ -7,12 +7,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.common.auth.annotation.AuthAnnotation;
 import com.app.common.util.ToolUtil;
 import com.app.dao.SealSeServiceDao;
+import com.app.entity.SealServiceOrderEntity;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
@@ -207,6 +211,22 @@ public class SealSeServiceController {
         //集合中放入反馈信息
         bean.put("feedbackMation", sealSeServiceDao.queryFeedbackMationById(id));
         ToolUtil.sendMessageToPageComJson(response, bean);
+	}
+	
+	/**
+	 * 
+	     * @Title: insertSealSeServiceMation
+	     * @Description: 新增工单
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@PostMapping("/sealServiceOrder")
+//	@AuthAnnotation
+	public void insertSealSeServiceMation(HttpServletResponse response, 
+			@RequestBody SealServiceOrderEntity sealServiceOrderEntity) {
+		System.out.println(sealServiceOrderEntity.getTypeId());
+		ToolUtil.sendMessageToPageComJson(response);
 	}
 	
 }

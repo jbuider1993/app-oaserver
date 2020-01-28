@@ -60,22 +60,32 @@ public class AuthHandler implements HandlerInterceptor{
 					requiredPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(AuthAnnotation.class);
 				}
 				// 如果标记了注解，则判断权限
-				if (requiredPermission != null && StringUtils.isNotBlank(requiredPermission.value())) {
+				if (requiredPermission != null) {
 					logger.info("权限校验");
 					//分别送请求和cookies中获取usertoken
 					String userToken = getUserToken(request);
-					//判断用户是否登录
-					if(!jedisClient.exists("userMation:" + userToken + "-APP")){
-						//未登录
-						throw new RuntimeException("用户未登录.");
-					}
-					// redis中获取该用户的权限信息 并判断是否有权限
-					//所有权限信息
-					List<Map<String, Object>> authPoints = JSONArray.fromObject(jedisClient.get("authPointsMation:" + userToken + "-APP").toString());
-					if(authPoints(authPoints, requiredPermission.value())){
-						return true;
+					if(StringUtils.isNotBlank(requiredPermission.value()) && StringUtils.isNotBlank(userToken)){
+						//注解权限点不为空
+						//判断用户是否登录
+						if(!jedisClient.exists("userMation:" + userToken + "-APP")){
+							//未登录
+							throw new RuntimeException("您还未登录，请先登录.");
+						}
+						// redis中获取该用户的权限信息 并判断是否有权限
+						//所有权限信息
+						List<Map<String, Object>> authPoints = JSONArray.fromObject(jedisClient.get("authPointsMation:" + userToken + "-APP").toString());
+						if(authPoints(authPoints, requiredPermission.value())){
+							return true;
+						}else{
+							throw new RuntimeException("您不具备该权限.");
+						}
 					}else{
-						throw new RuntimeException("您不具备该权限.");
+						//注解权限点为空,则说明需要登录无需赋权就能访问
+						if(StringUtils.isNotBlank(userToken)){
+							return true;
+						}else{
+							throw new RuntimeException("您还未登录，请先登录.");
+						}
 					}
 				}
 			}

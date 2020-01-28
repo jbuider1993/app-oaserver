@@ -2,15 +2,18 @@ package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.entity.SealServiceOrderEntity;
 import com.app.service.SealSeServiceService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(value = "/sealseservice", tags = "售后服务管理")
@@ -180,6 +183,19 @@ public class SealSeServiceController {
 		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
 	public String querySealSeServiceDetail(String id) {
 		return sealSeServiceService.querySealSeServiceDetail(id); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealServiceOrder
+	     * @Description: 新增工单
+	     * @return String 返回类型
+	     * 
+	 */
+	@PostMapping("/sealServiceOrder")
+	@ApiOperation(value = "新增工单", notes = "新增工单", produces = "application/json")
+	public String insertSealSeServiceMation(@ApiParam(name = "sealServiceOrderEntity", value = "售后订单模型") SealServiceOrderEntity sealServiceOrderEntity) {
+		return sealSeServiceService.insertSealSeServiceMation(sealServiceOrderEntity); 
 	}
 	
 }

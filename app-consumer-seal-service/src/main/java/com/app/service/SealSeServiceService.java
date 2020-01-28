@@ -1,11 +1,13 @@
 package com.app.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.app.entity.SealServiceOrderEntity;
 import com.app.service.hystrix.SealSeServiceServiceHystrix;
 
 /**
@@ -66,5 +68,8 @@ public interface SealSeServiceService {
 
 	@RequestMapping(value = "/sealServiceOrderDetail", method = RequestMethod.GET)
 	public String querySealSeServiceDetail(@RequestParam(value = "id") String id);
+
+	@RequestMapping(value = "/sealServiceOrder", method = RequestMethod.POST)
+	public String insertSealSeServiceMation(@RequestBody SealServiceOrderEntity sealServiceOrderEntity);
 
 }
