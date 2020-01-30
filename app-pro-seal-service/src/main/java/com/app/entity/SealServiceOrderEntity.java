@@ -2,6 +2,9 @@ package com.app.entity;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
+@Data
 public class SealServiceOrderEntity implements Serializable {
 	
 	/**
@@ -15,20 +18,4 @@ public class SealServiceOrderEntity implements Serializable {
 	//报单时间
 	private String declarationTime;
 
-	public String getTypeId() {
-		return typeId;
-	}
-
-	public void setTypeId(String typeId) {
-		this.typeId = typeId;
-	}
-
-	public String getDeclarationTime() {
-		return declarationTime;
-	}
-
-	public void setDeclarationTime(String declarationTime) {
-		this.declarationTime = declarationTime;
-	}
-	
 }
