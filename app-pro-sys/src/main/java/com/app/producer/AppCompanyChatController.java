@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.common.util.ToolUtil;
@@ -34,7 +34,7 @@ public class AppCompanyChatController {
 	     * @throws
 	 */
 	@GetMapping("/compantUserChan")
-	public void queryCompanyDepartment(HttpServletResponse response, @RequestParam String userToken) throws Exception{
+	public void queryCompanyDepartment(HttpServletResponse response, @RequestHeader String userToken) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userToken);
 		//获取公司单位

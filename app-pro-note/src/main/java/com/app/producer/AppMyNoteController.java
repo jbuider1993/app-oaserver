@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@GetMapping("/myNote")
-	public void queryNoteAllFile(HttpServletResponse response, @RequestParam String userToken) throws Exception{
+	public void queryNoteAllFile(HttpServletResponse response, @RequestHeader String userToken) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
         if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -65,7 +66,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@GetMapping("/myNoteDetail")
-	public void queryNoteContent(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id) throws Exception{
+	public void queryNoteContent(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String id) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		Map<String, Object> bean = appMyNoteDao.queryMyNoteContentMationById(map);
@@ -81,7 +82,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@GetMapping("/myNewNote")
-	public void queryNewNote(HttpServletResponse response, @RequestParam String userToken) throws Exception{
+	public void queryNewNote(HttpServletResponse response, @RequestHeader String userToken) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -100,7 +101,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@PostMapping("/myNoteFolder")
-	public void addNoteFile(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String name) throws Exception{
+	public void addNoteFile(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String id, @RequestParam String name) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -127,7 +128,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@PostMapping("/myNote")
-	public void addNoteContent(HttpServletResponse response, @RequestParam String userToken, @RequestParam String pid, @RequestParam String name, @RequestParam String type, @RequestParam String desc, @RequestParam String content) throws Exception{
+	public void addNoteContent(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String pid, @RequestParam String name, @RequestParam String type, @RequestParam String desc, @RequestParam String content) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -159,7 +160,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@PutMapping("/myNoteFileName")
-	public void editNoteFileName(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String name, @RequestParam String type) throws Exception{
+	public void editNoteFileName(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String id, @RequestParam String name, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -188,7 +189,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@PutMapping("/myNote")
-	public void editNoteContent(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String name, @RequestParam String desc, @RequestParam String content) throws Exception{
+	public void editNoteContent(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String id, @RequestParam String name, @RequestParam String desc, @RequestParam String content) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -214,7 +215,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@DeleteMapping("/myNote")
-	public void deleteFileFolderById(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String type) throws Exception{
+	public void deleteFileFolderById(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String id, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));
@@ -243,7 +244,7 @@ public class AppMyNoteController {
 	     * @throws
 	 */
 	@GetMapping("/myMoveToFile")
-	public void queryMoveToFile(HttpServletResponse response, @RequestParam String userToken, @RequestParam String id, @RequestParam String type) throws Exception{
+	public void queryMoveToFile(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String id, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		List<Map<String, Object>> beans = new ArrayList<>(); 
 		if(userToken.contains("-")){
@@ -270,7 +271,7 @@ public class AppMyNoteController {
 	 */
 	@SuppressWarnings("unchecked")
 	@PostMapping("/myMoveToFile")
-	public void editNoteToMoveById(HttpServletResponse response, @RequestParam String userToken, @RequestParam String moveid, @RequestParam String toid, @RequestParam String type) throws Exception{
+	public void editNoteToMoveById(HttpServletResponse response, @RequestHeader String userToken, @RequestParam String moveid, @RequestParam String toid, @RequestParam String type) throws Exception{
 		Map<String, Object> map = new HashMap<>();
 		if(userToken.contains("-")){
         	userToken = userToken.substring(0, userToken.indexOf("-"));

@@ -27,5 +27,7 @@
     <module>app-pro-adminstra</module>
     <module>app-consumer-seal-service</module>
     <module>app-pro-seal-service</module>
+    <module>app-common-pojo</module>
+    <module>app-dependency</module>
   </modules>
 </project>
