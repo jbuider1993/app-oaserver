@@ -13,7 +13,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(value = "/sealseservice", tags = "售后服务管理")
@@ -194,8 +193,10 @@ public class SealSeServiceController {
 	 */
 	@PostMapping("/sealServiceOrder")
 	@ApiOperation(value = "新增工单", notes = "新增工单", produces = "application/json")
-	public String insertSealSeServiceMation(SealServiceOrderEntity sealServiceOrderEntity) {
-		return sealSeServiceService.insertSealSeServiceMation(sealServiceOrderEntity); 
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header") })
+	public String insertSealSeServiceMation(@RequestHeader String userToken, SealServiceOrderEntity sealServiceOrderEntity) {
+		return sealSeServiceService.insertSealSeServiceMation(userToken, sealServiceOrderEntity); 
 	}
 	
 }

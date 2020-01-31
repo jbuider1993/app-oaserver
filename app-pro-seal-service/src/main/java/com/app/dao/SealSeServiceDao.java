@@ -38,5 +38,7 @@ public interface SealSeServiceDao {
 	public List<Map<String, Object>> queryMaterialMationById(@Param("id") String id);
 
 	public List<Map<String, Object>> queryFeedbackMationById(@Param("id") String id);
+
+	public int insertSealSeServiceMation(Map<String, Object> map);
 	
 }

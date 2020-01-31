@@ -315,5 +315,11 @@
 		WHERE a.service_id = #{id}
 		AND a.type_id = b.id
 	</select>
+	
+	<insert id="insertSealSeServiceMation" parameterType="java.util.Map">
+	    INSERT into crm_service 
+		(id, service_time, order_num, declaration_time, declaration_id, customer_id, customer_name, contacts, phone, email, qq, address_province, address_city, address_area, address_township, address_detailed, type_id, product_id, product_name, product_norms, product_serial_num, product_warranty, mode_id, content, urgency_id, service_user_id, cooperation_user_id, sheet_picture, enclosure_info, state, type, parent_id, create_id, create_time)
+		VALUES(#{id}, #{serviceTime}, #{orderNum}, #{declarationTime}, #{declarationId}, #{customerId}, #{customerName}, #{contacts}, #{phone}, #{email}, #{qq}, #{provinceId}, #{cityId}, #{areaId}, #{townshipId}, #{addressDetailed}, #{typeId}, #{productId}, #{productName}, #{productNorms}, #{productSerialNum}, #{productWarranty}, #{modeId}, #{content}, #{urgencyId}, #{serviceUserId}, #{cooperationUserId}, #{sheetPicture}, #{enclosureInfo}, #{state}, #{type}, #{parentId}, #{createId}, #{createTime})
+	</insert>
     
 </mapper>

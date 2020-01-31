@@ -70,6 +70,8 @@ public interface SealSeServiceService {
 	public String querySealSeServiceDetail(@RequestParam(value = "id") String id);
 
 	@RequestMapping(value = "/sealServiceOrder", method = RequestMethod.POST)
-	public String insertSealSeServiceMation(@RequestBody SealServiceOrderEntity sealServiceOrderEntity);
+	public String insertSealSeServiceMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestBody SealServiceOrderEntity sealServiceOrderEntity);
 
 }

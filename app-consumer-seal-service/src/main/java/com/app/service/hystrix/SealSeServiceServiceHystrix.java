@@ -59,7 +59,7 @@ public class SealSeServiceServiceHystrix implements SealSeServiceService{
 	}
 
 	@Override
-	public String insertSealSeServiceMation(SealServiceOrderEntity sealServiceOrderEntity) {
+	public String insertSealSeServiceMation(String userToken, SealServiceOrderEntity sealServiceOrderEntity) {
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 

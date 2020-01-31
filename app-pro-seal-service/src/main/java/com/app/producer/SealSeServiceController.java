@@ -1,5 +1,6 @@
 package com.app.producer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.common.auth.annotation.AuthAnnotation;
 import com.app.common.util.ToolUtil;
 import com.app.dao.SealSeServiceDao;
 import com.app.entity.SealServiceOrderEntity;
@@ -224,9 +224,31 @@ public class SealSeServiceController {
 	@PostMapping("/sealServiceOrder")
 //	@AuthAnnotation
 	public void insertSealSeServiceMation(HttpServletResponse response, 
+			@RequestHeader String userToken, 
 			@RequestBody SealServiceOrderEntity sealServiceOrderEntity) {
-		System.out.println(sealServiceOrderEntity.getTypeId());
-		ToolUtil.sendMessageToPageComJson(response);
+		Map<String, Object> map = ToolUtil.javaBean2Map(sealServiceOrderEntity);
+		if(ToolUtil.isBlank(map.get("productWarranty").toString())){
+			map.put("productWarranty", null);
+		}
+		map.put("id", ToolUtil.getSurFaceId());
+		map.put("orderNum", "SHFW" + ToolUtil.getUniqueKey());
+		map.put("createTime", ToolUtil.getTimeAndToString());
+		map.put("state", "1");
+		if(!ToolUtil.isBlank(map.get("serviceUserId").toString())){//接收人不为空，则进入待接单状态
+			map.put("state", '2');
+			map.put("serviceTime", ToolUtil.getTimeAndToString());
+		}
+		map.put("type", "2");
+		map.put("parentId", "0");
+		map.put("createId", userToken);
+		map.put("declarationId", userToken);
+		System.out.println(map);
+		int size = sealSeServiceDao.insertSealSeServiceMation(map);
+		if(size > 0){
+			ToolUtil.sendMessageToPageComJson(response);
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "新增工单失败", "-9999");
+		}
 	}
 	
 }
