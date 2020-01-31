@@ -194,7 +194,7 @@ public class SealSeServiceController {
 	 */
 	@PostMapping("/sealServiceOrder")
 	@ApiOperation(value = "新增工单", notes = "新增工单", produces = "application/json")
-	public String insertSealSeServiceMation(@ApiParam(name = "sealServiceOrderEntity", value = "售后订单模型") SealServiceOrderEntity sealServiceOrderEntity) {
+	public String insertSealSeServiceMation(SealServiceOrderEntity sealServiceOrderEntity) {
 		return sealSeServiceService.insertSealSeServiceMation(sealServiceOrderEntity); 
 	}
 	

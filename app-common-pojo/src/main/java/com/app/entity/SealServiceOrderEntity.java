@@ -8,9 +8,6 @@ import lombok.Data;
 @ApiModel(value = "售后订单")
 public class SealServiceOrderEntity {
 	
-	@ApiModelProperty(name = "id", value = "工单id", dataType = "String", required = false)
-	private String id;
-	
 	@ApiModelProperty(name = "typeId", value = "服务类型", dataType = "String", required = true)
 	private String typeId;
 	
