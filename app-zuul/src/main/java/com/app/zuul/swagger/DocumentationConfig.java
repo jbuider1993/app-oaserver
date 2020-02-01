@@ -3,6 +3,7 @@ package com.app.zuul.swagger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 @Component
 @Primary
+@ConditionalOnProperty(name = "enabled", prefix = "swagger", havingValue = "true", matchIfMissing = true)
 public class DocumentationConfig implements SwaggerResourcesProvider {
 
 	@Override
