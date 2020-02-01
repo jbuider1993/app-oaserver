@@ -40,5 +40,13 @@ public interface SealSeServiceDao {
 	public List<Map<String, Object>> queryFeedbackMationById(@Param("id") String id);
 
 	public int insertSealSeServiceMation(Map<String, Object> map);
+
+	public Map<String, Object> querySealSeServiceMationToEdit(Map<String, Object> map);
+
+	public List<Map<String, Object>> queryServiceUserNameById(Map<String, Object> map);
+
+	public Map<String, Object> querySealSeServiceState(@Param("id") String id);
+
+	public int editSealSeServiceMationById(Map<String, Object> map);
 	
 }

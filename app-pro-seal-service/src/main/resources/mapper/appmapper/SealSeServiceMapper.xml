@@ -321,5 +321,96 @@
 		(id, service_time, order_num, declaration_time, declaration_id, customer_id, customer_name, contacts, phone, email, qq, address_province, address_city, address_area, address_township, address_detailed, type_id, product_id, product_name, product_norms, product_serial_num, product_warranty, mode_id, content, urgency_id, service_user_id, cooperation_user_id, sheet_picture, enclosure_info, state, type, parent_id, create_id, create_time)
 		VALUES(#{id}, #{serviceTime}, #{orderNum}, #{declarationTime}, #{declarationId}, #{customerId}, #{customerName}, #{contacts}, #{phone}, #{email}, #{qq}, #{provinceId}, #{cityId}, #{areaId}, #{townshipId}, #{addressDetailed}, #{typeId}, #{productId}, #{productName}, #{productNorms}, #{productSerialNum}, #{productWarranty}, #{modeId}, #{content}, #{urgencyId}, #{serviceUserId}, #{cooperationUserId}, #{sheetPicture}, #{enclosureInfo}, #{state}, #{type}, #{parentId}, #{createId}, #{createTime})
 	</insert>
+	
+	<select id="querySealSeServiceMationToEdit" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+			a.type_id typeId,#服务类型
+			CONVERT(a.declaration_time, CHAR) declarationTime,#报单时间
+			a.customer_id customerId,#客户id
+			a.customer_name customerName,#客户名称
+			a.contacts,#联系人
+			a.phone,
+			a.email,
+			a.qq,
+			a.address_province provinceId,#省
+			a.address_city cityId,#市
+			a.address_area areaId,#区
+			a.address_township townshipId,#乡镇
+			a.address_detailed addressDetailed,#详细地址
+			a.product_id productId,#产品id
+			a.product_name productName,#产品名称
+			a.product_norms productNorms,#规格型号
+			a.product_serial_num productSerialNum,#序列号
+			a.product_warranty productWarranty,#质保类型
+			a.urgency_id urgencyId,#紧急程度
+			a.mode_id modeId,#处理方式
+			a.content,#服务内容
+			a.service_user_id serviceUserId,#工单接收人
+			a.sheet_picture sheetPicture,#相关照片
+			a.enclosure_info enclosureInfo
+		FROM
+			crm_service a
+		WHERE
+			a.id = #{id}
+    </select>
+    
+    <select id="queryServiceUserNameById" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			b.user_id id,
+			b.user_name `name`,
+			b.email
+		FROM
+			crm_service a,
+			sys_eve_user_staff b
+		WHERE
+			a.id = #{id}
+		AND a.service_user_id = b.user_id
+	</select>
+	
+	<select id="querySealSeServiceState" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.state
+		FROM
+			crm_service a
+		WHERE
+			a.id = #{id}
+	</select>
+	
+	<update id="editSealSeServiceMationById" parameterType="java.util.Map">
+        UPDATE crm_service
+        <set>
+            type_id = #{typeId},
+            declaration_time = #{declarationTime},
+            customer_id = #{customerId},
+            customer_name = #{customerName},
+            contacts = #{contacts},
+            phone = #{phone},
+            email = #{email},
+            qq = #{qq},
+            address_province = #{provinceId},
+            address_city = #{cityId},
+            address_area = #{areaId},
+            address_township = #{townshipId},
+            address_detailed = #{addressDetailed},
+            product_id = #{productId},
+            product_name = #{productName},
+            product_norms = #{productNorms},
+            product_serial_num = #{productSerialNum},
+            product_warranty = #{productWarranty},
+            urgency_id = #{urgencyId},
+            mode_id = #{modeId},
+            content = #{content},
+            service_user_id = #{serviceUserId},
+            cooperation_user_id = #{cooperationUserId},
+            sheet_picture = #{sheetPicture},
+            enclosure_info = #{enclosureInfo},
+            state = #{state},
+            <if test="serviceTime != '' and serviceTime != null">
+	            service_time = #{serviceTime}
+	        </if>
+        </set>
+        WHERE id = #{id}
+    </update>
     
 </mapper>

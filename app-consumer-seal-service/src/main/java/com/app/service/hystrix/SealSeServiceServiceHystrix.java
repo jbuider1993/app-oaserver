@@ -63,5 +63,15 @@ public class SealSeServiceServiceHystrix implements SealSeServiceService{
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 
+	@Override
+	public String querySealSeServiceMationToEdit(String userToken, String id) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String editSealSeServiceMationById(String userToken, String id, SealServiceOrderEntity sealServiceOrderEntity) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
 
 }

@@ -3,6 +3,7 @@ package com.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -197,6 +198,38 @@ public class SealSeServiceController {
 		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header") })
 	public String insertSealSeServiceMation(@RequestHeader String userToken, SealServiceOrderEntity sealServiceOrderEntity) {
 		return sealSeServiceService.insertSealSeServiceMation(userToken, sealServiceOrderEntity); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealServiceOrderEdit
+	     * @Description: 根据id获取售后服务信息用于编辑回显
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealServiceOrderEdit")
+	@ApiOperation(value = "根据id获取售后服务信息用于编辑回显", notes = "根据id获取售后服务信息用于编辑回显", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
+	public String querySealSeServiceMationToEdit(@RequestHeader String userToken, String id) {
+		return sealSeServiceService.querySealSeServiceMationToEdit(userToken, id); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealServiceOrderEdit
+	     * @Description: 编辑售后服务信息
+	     * @return String 返回类型
+	     * 
+	 */
+	@PutMapping("/sealServiceOrderEdit")
+	@ApiOperation(value = "编辑售后服务信息", notes = "编辑售后服务信息", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
+	public String editSealSeServiceMationById(@RequestHeader String userToken, String id, SealServiceOrderEntity sealServiceOrderEntity) {
+		return sealSeServiceService.editSealSeServiceMationById(userToken, id, sealServiceOrderEntity); 
 	}
 	
 }

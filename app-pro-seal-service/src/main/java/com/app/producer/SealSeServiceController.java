@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -222,7 +223,6 @@ public class SealSeServiceController {
 	     * @throws
 	 */
 	@PostMapping("/sealServiceOrder")
-//	@AuthAnnotation
 	public void insertSealSeServiceMation(HttpServletResponse response, 
 			@RequestHeader String userToken, 
 			@RequestBody SealServiceOrderEntity sealServiceOrderEntity) {
@@ -247,7 +247,78 @@ public class SealSeServiceController {
 		if(size > 0){
 			ToolUtil.sendMessageToPageComJson(response);
 		}else{
-			ToolUtil.sendMessageToPageComJson(response, "新增工单失败", "-9999");
+			ToolUtil.sendMessageToPageComJson(response, "新增工单失败。", "-9999");
+		}
+	}
+	
+	/**
+	 * 
+	     * @Title: querySealSeServiceMationToEdit
+	     * @Description: 根据id获取售后服务信息用于编辑回显
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealServiceOrderEdit")
+//	@AuthAnnotation
+	public void querySealSeServiceMationToEdit(HttpServletResponse response, 
+			@RequestParam String id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceMationToEdit(map);
+		if(bean != null && bean.isEmpty()){
+			//集合中放入附件信息
+			bean.put("enclosureInfo", sealSeServiceDao.queryEnclosureInfo(bean));
+			//集合中放入工单接收人信息
+			bean.put("serviceUserId", sealSeServiceDao.queryServiceUserNameById(map));
+			//集合中放入工单协助人信息
+			bean.put("cooperationUserId", sealSeServiceDao.queryCooperationUserNameById(id));
+			ToolUtil.sendMessageToPageComJson(response, bean);
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
+		}
+	}
+	
+	/**
+	 * 
+	     * @Title: editSealSeServiceMationById
+	     * @Description: 编辑售后服务信息
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@PutMapping("/sealServiceOrderEdit")
+	public void editSealSeServiceMationById(HttpServletResponse response, 
+			@RequestHeader String userToken, 
+			@RequestParam String id,
+			@RequestBody SealServiceOrderEntity sealServiceOrderEntity) {
+		Map<String, Object> map = ToolUtil.javaBean2Map(sealServiceOrderEntity);
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceState(id);
+		if(bean != null && bean.isEmpty()){
+			if("1".equals(bean.get("state").toString()) || "2".equals(bean.get("state").toString())){//1.待派工  2.待接单可以进行编辑
+				if(ToolUtil.isBlank(map.get("productWarranty").toString())){
+					map.put("productWarranty", null);
+				}
+				if(!ToolUtil.isBlank(map.get("serviceUserId").toString())){//接收人不为空，则进入待接单状态
+					map.put("state", '2');
+					if("1".equals(bean.get("state").toString())){
+						map.put("serviceTime", ToolUtil.getTimeAndToString());
+					}
+				}else{
+					map.put("state", '1');
+				}
+				map.put("id", id);
+				int size = sealSeServiceDao.editSealSeServiceMationById(map);
+				if(size > 0){
+					ToolUtil.sendMessageToPageComJson(response);
+				}else{
+					ToolUtil.sendMessageToPageComJson(response, "编辑工单失败。", "-9999");
+				}
+			}else{
+				ToolUtil.sendMessageToPageComJson(response, "该数据状态已改变，请刷新页面！", "-9999");
+			}
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
 		}
 	}
 	

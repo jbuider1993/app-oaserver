@@ -74,4 +74,15 @@ public interface SealSeServiceService {
 			@RequestHeader(value = "userToken") String userToken, 
 			@RequestBody SealServiceOrderEntity sealServiceOrderEntity);
 
+	@RequestMapping(value = "/sealServiceOrderEdit", method = RequestMethod.GET)
+	public String querySealSeServiceMationToEdit(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id);
+
+	@RequestMapping(value = "/sealServiceOrderEdit", method = RequestMethod.PUT)
+	public String editSealSeServiceMationById(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id,
+			@RequestBody SealServiceOrderEntity sealServiceOrderEntity);
+
 }
