@@ -97,4 +97,16 @@ public interface SealSeServiceService {
 			@RequestParam(value = "serviceUserId") String serviceUserId,
 			@RequestParam(value = "cooperationUserId") String cooperationUserId);
 
+	@RequestMapping(value = "/sealSeServiceWaitToReceiveMation", method = RequestMethod.GET)
+	public String querySealSeServiceWaitToReceiveMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id);
+
+	@RequestMapping(value = "/sealSeServiceWaitToReceiveMation", method = RequestMethod.POST)
+	public String insertSealSeServiceWaitToReceiveMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id, 
+			@RequestParam(value = "subscribeTime") String subscribeTime,
+			@RequestParam(value = "remark") String remark);
+
 }

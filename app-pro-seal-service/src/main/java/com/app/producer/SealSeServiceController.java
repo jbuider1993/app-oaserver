@@ -266,7 +266,7 @@ public class SealSeServiceController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceMationToEdit(map);
-		if(bean != null && bean.isEmpty()){
+		if(bean != null && !bean.isEmpty()){
 			//集合中放入附件信息
 			bean.put("enclosureInfo", sealSeServiceDao.queryEnclosureInfo(bean));
 			//集合中放入工单接收人信息
@@ -294,7 +294,7 @@ public class SealSeServiceController {
 			@RequestBody SealServiceOrderEntity sealServiceOrderEntity) {
 		Map<String, Object> map = ToolUtil.javaBean2Map(sealServiceOrderEntity);
 		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceState(id);
-		if(bean != null && bean.isEmpty()){
+		if(bean != null && !bean.isEmpty()){
 			if("1".equals(bean.get("state").toString()) || "2".equals(bean.get("state").toString())){//1.待派工  2.待接单可以进行编辑
 				if(ToolUtil.isBlank(map.get("productWarranty").toString())){
 					map.put("productWarranty", null);
@@ -334,7 +334,7 @@ public class SealSeServiceController {
 	public void querySealSeServiceWaitToWorkMation(HttpServletResponse response, 
 			@RequestParam String id) {
 		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceWaitToWorkMation(id);
-		if(bean != null && bean.isEmpty()){
+		if(bean != null && !bean.isEmpty()){
 			ToolUtil.sendMessageToPageComJson(response, bean);
 		}else{
 			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
@@ -355,22 +355,78 @@ public class SealSeServiceController {
 			@RequestParam String serviceUserId,
 			@RequestParam String cooperationUserId) {
 		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceState(id);
-		if("1".equals(bean.get("state").toString())){//1.待派工可以进行派工
-			Map<String, Object> map = new HashMap<>();
-			map.put("serviceTime", ToolUtil.getTimeAndToString());
-			map.put("serviceUserId", serviceUserId);
-			map.put("cooperationUserId", cooperationUserId);
-			map.put("id", id);
-			int size = sealSeServiceDao.editSealSeServiceWaitToWorkMation(map);
-			if(size > 0){
-				ToolUtil.sendMessageToPageComJson(response);
+		if(bean != null && !bean.isEmpty()){
+			if("1".equals(bean.get("state").toString())){//1.待派工可以进行派工
+				Map<String, Object> map = new HashMap<>();
+				map.put("serviceTime", ToolUtil.getTimeAndToString());
+				map.put("serviceUserId", serviceUserId);
+				map.put("cooperationUserId", cooperationUserId);
+				map.put("id", id);
+				int size = sealSeServiceDao.editSealSeServiceWaitToWorkMation(map);
+				if(size > 0){
+					ToolUtil.sendMessageToPageComJson(response);
+				}else{
+					ToolUtil.sendMessageToPageComJson(response, "派工失败。", "-9999");
+				}
 			}else{
-				ToolUtil.sendMessageToPageComJson(response, "派工失败。", "-9999");
+				ToolUtil.sendMessageToPageComJson(response, "该数据状态已改变，请刷新页面。", "-9999");
 			}
 		}else{
-			ToolUtil.sendMessageToPageComJson(response, "该数据状态已改变，请刷新页面。", "-9999");
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
 		}
-		
+	}
+	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToReceiveMation
+	     * @Description: 接单时获取接单信息
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealSeServiceWaitToReceiveMation")
+	public void querySealSeServiceWaitToReceiveMation(HttpServletResponse response, 
+			@RequestParam String id) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceWaitToReceiveMation(id);
+		if(bean != null && !bean.isEmpty()){
+			ToolUtil.sendMessageToPageComJson(response, bean);
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
+		}
+	}
+	
+	/**
+	 * 
+	     * @Title: insertSealSeServiceWaitToReceiveMation
+	     * @Description: 接单
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@PostMapping("/sealSeServiceWaitToReceiveMation")
+	public void insertSealSeServiceWaitToReceiveMation(HttpServletResponse response, 
+			@RequestHeader(value = "userToken") String userId, 
+			@RequestParam String id,
+			@RequestParam String subscribeTime,
+			@RequestParam String remark) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceState(id);
+		if(bean != null && !bean.isEmpty()){
+			if("2".equals(bean.get("state").toString())){//2.待接单可以进行接单
+				Map<String, Object> map = new HashMap<>();
+				map.put("serviceId", id);
+				map.put("id", ToolUtil.getSurFaceId());
+				map.put("createTime", ToolUtil.getTimeAndToString());
+				map.put("receiverId", userId);
+				map.put("subscribeTime", subscribeTime);
+				map.put("remark", remark);
+				sealSeServiceDao.insertSealSeServiceWaitToReceiveMation(map);
+				sealSeServiceDao.editSealSeServiceWaitToReceiveMation(map);
+			}else{
+				ToolUtil.sendMessageToPageComJson(response, "该数据状态已改变，请刷新页面。", "-9999");
+			}
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
+		}
 	}
 	
 }

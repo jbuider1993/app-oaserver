@@ -266,4 +266,38 @@ public class SealSeServiceController {
 		return sealSeServiceService.editSealSeServiceWaitToWorkMation(userToken, id, serviceUserId, cooperationUserId); 
 	}
 	
+	/**
+	 * 
+	     * @Title: sealSeServiceWaitToReceiveMation
+	     * @Description: 接单时获取接单信息
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealSeServiceWaitToReceiveMation")
+	@ApiOperation(value = "接单时获取接单信息", notes = "接单时获取接单信息", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
+	public String querySealSeServiceWaitToReceiveMation(@RequestHeader String userToken, String id) {
+		return sealSeServiceService.querySealSeServiceWaitToReceiveMation(userToken, id); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealSeServiceWaitToReceiveMation
+	     * @Description: 接单
+	     * @return String 返回类型
+	     * 
+	 */
+	@PostMapping("/sealSeServiceWaitToReceiveMation")
+	@ApiOperation(value = "接单", notes = "接单", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "subscribeTime", value = "预约开始时间", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "remark", value = "签收备注", dataType = "String", required = false, paramType = "query") })
+	public String insertSealSeServiceWaitToReceiveMation(@RequestHeader String userToken, String id, String subscribeTime, String remark) {
+		return sealSeServiceService.insertSealSeServiceWaitToReceiveMation(userToken, id, subscribeTime, remark); 
+	}
+	
 }

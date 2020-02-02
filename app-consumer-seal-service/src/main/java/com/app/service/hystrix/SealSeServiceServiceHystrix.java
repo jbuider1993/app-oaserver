@@ -83,5 +83,15 @@ public class SealSeServiceServiceHystrix implements SealSeServiceService{
 		throw new RuntimeException("请求失败，服务无法访问");
 	}
 
+	@Override
+	public String querySealSeServiceWaitToReceiveMation(String userToken, String id) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
+	@Override
+	public String insertSealSeServiceWaitToReceiveMation(String userToken, String id, String subscribeTime, String remark) {
+		throw new RuntimeException("请求失败，服务无法访问");
+	}
+
 
 }
