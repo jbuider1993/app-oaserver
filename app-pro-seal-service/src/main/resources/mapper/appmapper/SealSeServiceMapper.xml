@@ -497,4 +497,48 @@
         WHERE id = #{serviceId}
     </update>
     
+    <select id="querySealSeServiceWaitToSignonMation" resultType="java.util.Map">
+		SELECT
+			a.id,
+			a.order_num orderNum,#工单号
+			IFNULL(b.`name`, '') serviceTypeName,#服务类型
+			CONVERT(a.declaration_time, CHAR) declarationTime,#报单时间
+			a.contacts,#联系人
+			a.phone,#联系电话
+			a.email, #邮箱
+			a.qq, #qq
+			a.service_time serviceTime, #派工时间
+			a.customer_name customerName,#客户名称
+			IFNULL(o.`name`, '') addressProvince,#省
+			IFNULL(p.`name`, '') addressCity,#市
+			IFNULL(q.`name`, '') addressArea, #区、乡、县
+			IFNULL(r.`name`, '') addressTownship, #镇、街道
+			IFNULL(a.address_detailed, '') addressDetailed #详细地址
+		FROM
+			crm_service a
+			LEFT JOIN t_area o ON a.address_province = o.id
+			LEFT JOIN t_area p ON a.address_city = p.id
+			LEFT JOIN t_area q ON a.address_area = q.id
+			LEFT JOIN t_area r ON a.address_township = r.id,
+		 	crm_service_type b
+		WHERE
+			a.id = #{id}
+			AND a.type_id = b.id
+			AND a.state = 3
+	</select>
+    
+    <insert id="insertSealSeServiceWaitToSignonMation" parameterType="java.util.Map">
+	    INSERT into crm_service_register 
+		(id, service_id, register_id, longitude, latitude, address, remark, create_time)
+		VALUES(#{id}, #{serviceId}, #{registerId}, #{longitude}, #{latitude}, #{address}, #{remark}, #{createTime})
+	</insert>
+	
+	<update id="editSealSeServiceWaitToSignonMation" parameterType="java.util.Map">
+        UPDATE crm_service
+        <set>
+            state = 4
+        </set>
+        WHERE id = #{serviceId}
+    </update>
+    
 </mapper>

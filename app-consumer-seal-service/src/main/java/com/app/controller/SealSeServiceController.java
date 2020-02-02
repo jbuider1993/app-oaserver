@@ -300,4 +300,40 @@ public class SealSeServiceController {
 		return sealSeServiceService.insertSealSeServiceWaitToReceiveMation(userToken, id, subscribeTime, remark); 
 	}
 	
+	/**
+	 * 
+	     * @Title: sealSeServiceWaitToSignonMation
+	     * @Description: 签到时获取签到信息
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealSeServiceWaitToSignonMation")
+	@ApiOperation(value = "签到时获取签到信息", notes = "签到时获取签到信息", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
+	public String querySealSeServiceWaitToSignonMation(@RequestHeader String userToken, String id) {
+		return sealSeServiceService.querySealSeServiceWaitToSignonMation(userToken, id); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealSeServiceWaitToSignonMation
+	     * @Description: 签到
+	     * @return String 返回类型
+	     * 
+	 */
+	@PostMapping("/sealSeServiceWaitToSignonMation")
+	@ApiOperation(value = "签到", notes = "签到", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "longitude", value = "经度", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "latitude", value = "纬度", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "address", value = "详细地址", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "remark", value = "签到备注", dataType = "String", required = false, paramType = "query")})
+	public String insertSealSeServiceWaitToSignonMation(@RequestHeader String userToken, String id, String longitude, String latitude, String address, String remark) {
+		return sealSeServiceService.insertSealSeServiceWaitToSignonMation(userToken, id, longitude, latitude, address, remark); 
+	}
+	
 }

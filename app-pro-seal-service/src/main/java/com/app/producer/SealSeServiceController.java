@@ -429,4 +429,61 @@ public class SealSeServiceController {
 		}
 	}
 	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToSignonMation
+	     * @Description: 签到时获取签到信息
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealSeServiceWaitToSignonMation")
+	public void querySealSeServiceWaitToSignonMation(HttpServletResponse response, 
+			@RequestParam String id) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceWaitToSignonMation(id);
+		if(bean != null && !bean.isEmpty()){
+			ToolUtil.sendMessageToPageComJson(response, bean);
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
+		}
+	}
+	
+	/**
+	 * 
+	     * @Title: insertSealSeServiceWaitToReceiveMation
+	     * @Description: 签到
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@PostMapping("/sealSeServiceWaitToSignonMation")
+	public void insertSealSeServiceWaitToSignonMation(HttpServletResponse response, 
+			@RequestHeader(value = "userToken") String userId, 
+			@RequestParam String id,
+			@RequestParam String longitude,
+			@RequestParam String latitude,
+			@RequestParam String address,
+			@RequestParam String remark) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceState(id);
+		if(bean != null && !bean.isEmpty()){
+			if("3".equals(bean.get("state").toString())){//3.待签到可以进行签到
+				Map<String, Object> map = new HashMap<>();
+				map.put("serviceId", id);
+				map.put("id", ToolUtil.getSurFaceId());
+				map.put("createTime", ToolUtil.getTimeAndToString());
+				map.put("registerId", userId);
+				map.put("remark", remark);
+				map.put("longitude", longitude);
+				map.put("latitude", latitude);
+				map.put("address", address);
+				sealSeServiceDao.insertSealSeServiceWaitToSignonMation(map);
+				sealSeServiceDao.editSealSeServiceWaitToSignonMation(map);
+			}else{
+				ToolUtil.sendMessageToPageComJson(response, "该数据状态已改变，请刷新页面！", "-9999");
+			}
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
+		}
+	}
+	
 }

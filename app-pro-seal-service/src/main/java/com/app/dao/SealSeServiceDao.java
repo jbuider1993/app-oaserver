@@ -58,5 +58,11 @@ public interface SealSeServiceDao {
 	public int insertSealSeServiceWaitToReceiveMation(Map<String, Object> map);
 
 	public int editSealSeServiceWaitToReceiveMation(Map<String, Object> map);
+
+	public Map<String, Object> querySealSeServiceWaitToSignonMation(@Param("id") String id);
+
+	public int insertSealSeServiceWaitToSignonMation(Map<String, Object> map);
+
+	public int editSealSeServiceWaitToSignonMation(Map<String, Object> map);
 	
 }

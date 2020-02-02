@@ -109,4 +109,18 @@ public interface SealSeServiceService {
 			@RequestParam(value = "subscribeTime") String subscribeTime,
 			@RequestParam(value = "remark") String remark);
 
+	@RequestMapping(value = "/sealSeServiceWaitToSignonMation", method = RequestMethod.GET)
+	public String querySealSeServiceWaitToSignonMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id);
+
+	@RequestMapping(value = "/sealSeServiceWaitToSignonMation", method = RequestMethod.POST)
+	public String insertSealSeServiceWaitToSignonMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id, 
+			@RequestParam(value = "longitude") String longitude, 
+			@RequestParam(value = "latitude") String latitude,
+			@RequestParam(value = "address") String address,
+			@RequestParam(value = "remark") String remark);
+
 }
