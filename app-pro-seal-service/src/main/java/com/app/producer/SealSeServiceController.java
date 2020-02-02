@@ -322,4 +322,55 @@ public class SealSeServiceController {
 		}
 	}
 	
+	/**
+	 * 
+	     * @Title: querySealSeServiceWaitToWorkMation
+	     * @Description: 派工时获取派工信息
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@GetMapping("/sealSeServiceWaitToWorkMation")
+	public void querySealSeServiceWaitToWorkMation(HttpServletResponse response, 
+			@RequestParam String id) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceWaitToWorkMation(id);
+		if(bean != null && bean.isEmpty()){
+			ToolUtil.sendMessageToPageComJson(response, bean);
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "不存在的工单信息。", "-9999");
+		}
+	}
+	
+	/**
+	 * 
+	     * @Title: editSealSeServiceWaitToWorkMation
+	     * @Description: 派工
+	     * @param @throws Exception    参数
+	     * @return void    返回类型
+	     * @throws
+	 */
+	@PostMapping("/sealSeServiceWaitToWorkMation")
+	public void editSealSeServiceWaitToWorkMation(HttpServletResponse response, 
+			@RequestParam String id,
+			@RequestParam String serviceUserId,
+			@RequestParam String cooperationUserId) {
+		Map<String, Object> bean = sealSeServiceDao.querySealSeServiceState(id);
+		if("1".equals(bean.get("state").toString())){//1.待派工可以进行派工
+			Map<String, Object> map = new HashMap<>();
+			map.put("serviceTime", ToolUtil.getTimeAndToString());
+			map.put("serviceUserId", serviceUserId);
+			map.put("cooperationUserId", cooperationUserId);
+			map.put("id", id);
+			int size = sealSeServiceDao.editSealSeServiceWaitToWorkMation(map);
+			if(size > 0){
+				ToolUtil.sendMessageToPageComJson(response);
+			}else{
+				ToolUtil.sendMessageToPageComJson(response, "派工失败。", "-9999");
+			}
+		}else{
+			ToolUtil.sendMessageToPageComJson(response, "该数据状态已改变，请刷新页面。", "-9999");
+		}
+		
+	}
+	
 }

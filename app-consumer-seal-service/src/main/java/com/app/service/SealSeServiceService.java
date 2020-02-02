@@ -85,4 +85,16 @@ public interface SealSeServiceService {
 			@RequestParam(value = "id") String id,
 			@RequestBody SealServiceOrderEntity sealServiceOrderEntity);
 
+	@RequestMapping(value = "/sealSeServiceWaitToWorkMation", method = RequestMethod.GET)
+	public String querySealSeServiceWaitToWorkMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id);
+
+	@RequestMapping(value = "/sealSeServiceWaitToWorkMation", method = RequestMethod.POST)
+	public String editSealSeServiceWaitToWorkMation(
+			@RequestHeader(value = "userToken") String userToken, 
+			@RequestParam(value = "id") String id, 
+			@RequestParam(value = "serviceUserId") String serviceUserId,
+			@RequestParam(value = "cooperationUserId") String cooperationUserId);
+
 }

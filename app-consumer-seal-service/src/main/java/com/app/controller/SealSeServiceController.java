@@ -232,4 +232,38 @@ public class SealSeServiceController {
 		return sealSeServiceService.editSealSeServiceMationById(userToken, id, sealServiceOrderEntity); 
 	}
 	
+	/**
+	 * 
+	     * @Title: sealSeServiceWaitToWorkMation
+	     * @Description: 派工时获取派工信息
+	     * @return String 返回类型
+	     * 
+	 */
+	@GetMapping("/sealSeServiceWaitToWorkMation")
+	@ApiOperation(value = "派工时获取派工信息", notes = "派工时获取派工信息", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query") })
+	public String querySealSeServiceWaitToWorkMation(@RequestHeader String userToken, String id) {
+		return sealSeServiceService.querySealSeServiceWaitToWorkMation(userToken, id); 
+	}
+	
+	/**
+	 * 
+	     * @Title: sealSeServiceWaitToWorkMation
+	     * @Description: 派工
+	     * @return String 返回类型
+	     * 
+	 */
+	@PostMapping("/sealSeServiceWaitToWorkMation")
+	@ApiOperation(value = "派工", notes = "派工", produces = "application/json")
+	@ApiImplicitParams({ 
+		@ApiImplicitParam(name = "userToken", value = "用户token", dataType = "String", required = true, paramType = "header"),
+		@ApiImplicitParam(name = "id", value = "工单id", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "serviceUserId", value = "工单接收人", dataType = "String", required = true, paramType = "query"),
+		@ApiImplicitParam(name = "cooperationUserId", value = "工单协助人", dataType = "String", required = false, paramType = "query") })
+	public String editSealSeServiceWaitToWorkMation(@RequestHeader String userToken, String id, String serviceUserId, String cooperationUserId) {
+		return sealSeServiceService.editSealSeServiceWaitToWorkMation(userToken, id, serviceUserId, cooperationUserId); 
+	}
+	
 }
