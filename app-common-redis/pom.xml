@@ -21,7 +21,7 @@
 		<java.version>1.8</java.version>
 
 		<jackjson.version>1.9.13</jackjson.version>
-		<fastjson.version>1.2.3</fastjson.version>
+		<fastjson.version>1.2.25</fastjson.version>
 		<netjson.version>2.4</netjson.version>
 	</properties>
 
